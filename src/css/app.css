@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: monospace;
+}
+
+.app {
+    display: flex;
+    align-items: stretch;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+}
+
+.list {
+    flex: 1;
+    height: 100%;
+    padding: 3rem;
+    overflow-y: scroll;
+}
+
+.list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list li {
+    padding: 1rem;
+    margin: 1rem;
+    background: #DDD;
+    border-radius: .5rem;
+    border: solid #CCC 1px;
+    cursor: pointer;
+}
+
+.form {
+    background-color: #DDD;
+    flex: 1;
+    padding: 3rem;
+}
+
+.form div {
+    display: flex;
+}
+
+.form label {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.form span {
+    flex: 1;
+}
+
+.form input {
+    flex: 2;
+    padding: 1rem;
+    border: 0;
+    font-size: 1rem;
+}
+
+.form button {
+    width: 100%;
+    background-color: orange;
+    border: 0;
+    padding: 1rem;
+}

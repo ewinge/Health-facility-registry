@@ -2,4 +2,5 @@ target
 .project
 .classpath
 .settings
-*.zip
+node_modules
+npm-debug.log
