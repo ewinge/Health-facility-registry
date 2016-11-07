@@ -7,7 +7,7 @@ export default function List({ items = [], onItemClick }) {
     const listItems = items
         .map(item => {
             return (
-                <Node item={item} />
+                <Node item={item} key={item.id}/>
             );
         });
 
@@ -33,7 +33,10 @@ class Node extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
+    handleClick(e) {
+//        e.preventDefault();
+        
+        // invert expanded
     	this.setState(prevState => ({
     		expanded: !prevState.expanded
     	}));
