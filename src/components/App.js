@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
 import List from './List';
 import Form from './Form';
+import OUList from './OUList';
 
 /**
  * ES2015 class component
@@ -14,28 +15,11 @@ export default class App extends Component {
         // Set some initial state variables that are used within the component
         this.state = {
             isSaving: false,
-            isLoading: true,
-            items: [],
         };
 
         // Bind the functions that are passed around to the component
         this.onItemClick = this.onItemClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    componentDidMount() {
-        this.loadOrganisationUnits();
-    }
-
-    loadOrganisationUnits() {
-        // Loads the organisation units from the api and sets the loading state to false and puts the items onto the component state.
-        loadOrganisationUnits()
-            .then((organisationUnits) => {
-                this.setState({
-                    isLoading: false,
-                    items: organisationUnits,
-                });
-            });
     }
 
     onItemClick(item) {
@@ -65,22 +49,11 @@ export default class App extends Component {
     }
 
     render() {
-        // If the component state is set to isLoading we hide the app and show a loading message
-        if (this.state.isLoading) {
-            return (
-                <div>Loading data...</div>
-            );
-        }
-
-        // Render the app which includes the list component and the form component
         // We hide the form component when we are in the saving state.
         return (
             <div className="app">
-                <List
-                    onItemClick={this.onItemClick}
-                    items={this.state.items}
-                />
-                {this.state.isSaving ? <div>Saving organisation unit</div> : <Form onSubmit={this.onSubmit} />}
+            <OUList parent="" />
+            {this.state.isSaving ? <div>Saving organisation unit</div> : <Form onSubmit={this.onSubmit} />}
             </div>
         );
     }

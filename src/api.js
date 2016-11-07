@@ -52,9 +52,9 @@ export function deleteOrganisationUnit(organisationUnit) {
     .then(onlySuccessResponses);
 }
 
-export function loadOrganisationUnits() {
+export function loadOrganisationUnits(parent) {
     // Load the organisation units but only the first level and the do not use paging
-    return fetch(`${serverUrl}/organisationUnits?paging=false&level=1`, fetchOptions)
+    return fetch(`${serverUrl}/organisationUnits/${parent}?paging=false&level=1`, fetchOptions)
         .then(onlySuccessResponses)
         .then(response => response.json())
         // pick the organisationUnits property from the payload
