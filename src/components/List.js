@@ -43,11 +43,22 @@ class Node extends Component {
     }
     
     render() {
-	    return (
-            <li key={this.props.item.id} onClick={() => this.handleClick()}>{this.props.item.displayName}
-                {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
-            </li>
-	    );
+        if (this.state.expanded) {
+            return (
+                <li key={this.props.item.id}>
+                    <img src="images/open.gif" onClick={this.handleClick} />
+                    {this.props.item.displayName}
+                    <OUList parent={this.props.item.id} />
+                </li>
+            );
+        } else {
+            return (
+                <li key={this.props.item.id}>
+                    <img src="images/closed.gif" onClick={this.handleClick} />
+                    {this.props.item.displayName}
+                </li>
+            );
+        }
 	}
 }
 
