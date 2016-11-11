@@ -13,7 +13,6 @@ body {
     right: 0px;
     top: 0;
     bottom: 0;
-    overflow: hidden;
 }
 
 .app {
@@ -123,7 +122,7 @@ body {
     float:right;
 }
 
-.search {
+.searchBar {
 	padding: 5px 50px 5px 5px;
     font-size: 16px;
 }
