@@ -63,7 +63,7 @@ export function loadOrganisationUnits(parent) {
 
 export function searchOrganisationUnits(parent, input) {
     // Load the organisation units but only the first level and the do not use paging
-    return fetch(`${serverUrl}/organisationUnits/?paging=false&filter=name:ilike:` + input, fetchOptions)
+    return fetch(`${serverUrl}/organisationUnits/${parent}?paging=false&filter=name:ilike:` + input, fetchOptions)
         .then(onlySuccessResponses)
         .then(response => response.json())
         // pick the organisationUnits property from the payload

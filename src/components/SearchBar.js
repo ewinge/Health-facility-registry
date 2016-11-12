@@ -14,12 +14,18 @@ var SearchBar = React.createClass({
 
 	handleChange: function(e) {
 		this.setState({value: e.target.value});
+
+		if (this.state.value.length > 1) {
+			this.handleSubmit();
+		}
 	},
 
 	handleSubmit: function() {
-		searchOrganisationUnits("", this.state.value).then((organisationUnits) => {
-			SearchActions.saveResults(organisationUnits);
-		});
+		if (this.state.value.length > 0) {
+			searchOrganisationUnits("", this.state.value).then((organisationUnits) => {
+				SearchActions.saveResults(organisationUnits);
+			});
+		} 
 	},
 
 	render() {
