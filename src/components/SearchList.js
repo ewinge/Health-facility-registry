@@ -1,5 +1,6 @@
 import React from "react";
 import OUStore from "../stores/OUStore"
+import Expandable from "./Expandable"
 
 var SearchList = React.createClass({
 
@@ -21,17 +22,25 @@ var SearchList = React.createClass({
     OUStore.on("change", this.getOrgUnits);
   },
 
+  createList: function() {
+    var listItems = this.state.items.map(function(item, i) {
+      console.log(i, item.displayName); //For testing purposes
+      return <Expandable id={item.id} displayName={item.displayName} />
+    });
+
+    if (listItems.length == 0) {
+      return <p>No such facility found.</p>;
+
+    } else {
+      return (<ul>{listItems}</ul>);
+    }
+  },
+
   render: function() {
-    console.log("Render called!");
     return (
-      <div>
-      <h1>Search test results:</h1>
-      <ul>
-        {this.state.items.map(function(item, i) {
-          console.log(i, item.displayName); //For testing purposes
-          return <li key={item.id}>{item.displayName}</li>;
-        })}
-      </ul>
+      <div className="searchList">
+        <h1>Search results:</h1>
+        {this.createList()}
       </div>
     )
   }

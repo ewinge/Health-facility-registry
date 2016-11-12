@@ -5,11 +5,12 @@ class OUStore extends EventEmitter {
   constructor() {
     super()
     this.state = {
-      organizationUnits: [{id: 1, displayName: "Test Unit 1"},
-                          {id: 2, displayName: "Test Unit 2"}]
+
+      //Som initial data for testing
+      organizationUnits: [{id: "GvFqTavdpGE", displayName: "Agape CHP"},
+                          {id: "EZPwuUTeIIG", displayName: "Wara Wara Yagalaid"}]
     };
   }
-
   getAll() {
     return this.state.organizationUnits;
   }

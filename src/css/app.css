@@ -1,128 +1,177 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: monospace;
+  margin: 0;
+  font-family: monospace;
 }
 
 .layout {
-	position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0;
-    bottom: 0;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0;
+  bottom: 0;
 }
 
 .app {
-    display: flex;
-    align-items: stretch;
-    height: 100%;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
 }
 
 .list {
-    flex: 1;
-    height: 100%;
-    padding: 3rem;
-    overflow-y: scroll;
+  flex: 1;
+  height: 100%;
+  padding: 3rem;
+  overflow-y: scroll;
 }
 
 .list ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .list li {
-    padding: 1rem;
-    margin: 1rem;
-    background: #DDD;
-    border-radius: .5rem;
-    border: solid #CCC 1px;
-    cursor: pointer;
+  padding: 1rem;
+  margin: 1rem;
+  background: #DDD;
+  border-radius: .5rem;
+  border: solid #CCC 1px;
+  cursor: pointer;
 }
 
 .form {
-    background-color: #DDD;
-    flex: 1;
-    padding: 3rem;
+  background-color: #DDD;
+  flex: 1;
+  padding: 3rem;
 }
 
 .form div {
-    display: flex;
+  display: flex;
 }
 
 .form label {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-bottom: 1rem;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 .form span {
-    flex: 1;
+  flex: 1;
 }
 
 .form input {
-    flex: 2;
-    padding: 1rem;
-    border: 0;
-    font-size: 1rem;
+  flex: 2;
+  padding: 1rem;
+  border: 0;
+  font-size: 1rem;
 }
 
 .form button {
-    width: 100%;
-    background-color: orange;
-    border: 0;
-    padding: 1rem;
+  width: 100%;
+  background-color: orange;
+  border: 0;
+  padding: 1rem;
 }
 
 .nav {
-    list-style-type: none;
-    margin: 0;
-    background-color: #276696;
-    text-align: center;
-    width: 100%;
-    font-weight: bold;
+  list-style-type: none;
+  margin: 0;
+  background-color: #276696;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
 }
 
 .nav ul {
-	list-style-type: none;
-    margin: 0;
-    padding: 100;
-    width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 100;
+  width: 100%;
 }
 
 .nav li {
-    float: left;
+  float: left;
 }
 
 .nav li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
 }
 
 .nav li a:hover {
-    background-color: #1E4E71;
+  background-color: #1E4E71;
 }
 
 .nav:after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .nav li:last-child {
-	padding: 8px;
-    float:right;
+  float:right;
+}
+
+.home {
+  height: 80%;
+}
+
+.search {
+  margin: 10px;
+  background-color: lightblue;
+  width: 30%;
+  height: auto;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.search ol {
+  padding: 10px 0px 10px 0px;
+  list-style: none;
 }
 
 .searchBar {
-	padding: 5px 50px 5px 5px;
-    font-size: 16px;
+  width: 95%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.searchList {
+  padding: 0;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.searchList ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.searchList li {
+  padding: 10px;
+  margin-top: 5px;
+  background: #F5FBFC;
+  border-radius: 5px;
+  border: solid #BBB 1px;
+  cursor: pointer;
+}
+
+/*aner ikke hva jeg driver med*/
+.searchList ul li ol li{
+  padding: 0;
+  margin-top: 0;
+  border: hidden;
+  border-radius: 0px;
+  text-align: left;
 }

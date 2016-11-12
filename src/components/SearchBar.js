@@ -24,17 +24,14 @@ var SearchBar = React.createClass({
 
 	render() {
 		return (
-			<div>
 			<form onSubmit={this.handleSubmit}>
 				<input
 					className="searchBar"
-					type="text" placeholder="Find organization unit..."
+					type="search" placeholder="Find organization unit..."
 					value={this.state.value} onChange={this.handleChange}
 					size="30"
 				/>
 			</form>
-
-			</div>
 		);
 
 	}

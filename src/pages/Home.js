@@ -1,12 +1,12 @@
 import React from "react";
-import SearchList from '../components/SearchList';
+import Search from '../components/Search';
 
 var Home = React.createClass({
 	render: function () {
 		return (
-			<div>
-				<h1>Home page under construction.</h1>
-				<SearchList />
+			<div className="home">
+				<h1>Under construction.</h1>
+				<Search />
 			</div>
 		);
 	}
