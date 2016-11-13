@@ -1,5 +1,4 @@
 import React from "react";
-import { searchOrganisationUnits  } from '../api';
 
 import OUStore from "../stores/OUStore"
 import * as SearchActions from "../actions/SearchActions";
@@ -15,24 +14,20 @@ var SearchBar = React.createClass({
 	handleChange: function(e) {
 		this.setState({value: e.target.value});
 
-		if (this.state.value.length > 1) {
-			this.handleSubmit();
+		if (e.target.value.length > 1) {
+				SearchActions.handleQuery(e.target.value);
 		}
 	},
 
 	handleSubmit: function() {
-		if (this.state.value.length > 0) {
-			searchOrganisationUnits("", this.state.value).then((organisationUnits) => {
-				SearchActions.saveResults(organisationUnits);
-			});
-		} 
+		SearchActions.handleQuery(this.state.value);
 	},
 
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<input
-					className="searchBar"
+					className="input"
 					type="search" placeholder="Find organization unit..."
 					value={this.state.value} onChange={this.handleChange}
 					size="30"

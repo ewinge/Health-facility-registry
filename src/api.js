@@ -72,8 +72,15 @@ export function searchOrganisationUnits(parent, input) {
 
 //Loads a single unit with the id
 export function loadUnit(id) {
-    // Load the organisation units but only the first level and the do not use paging
     return fetch(`${serverUrl}/organisationUnits/${id}`, fetchOptions)
         .then(onlySuccessResponses)
         .then(response => response.json())
+}
+
+//Loads all units
+export function loadAllUnits() {
+    return fetch(`${serverUrl}/organisationUnits/?paging=false&fields=:all`, fetchOptions)
+        .then(onlySuccessResponses)
+        .then(response => response.json())
+        .then(({ organisationUnits }) => organisationUnits);
 }

@@ -1,8 +1,15 @@
 import dispatcher from "../dispatcher";
 
-export function saveResults(result) {
+export function handleQuery(input) {
   dispatcher.dispatch({
-    type: "SUBMIT",
-    orgUnits: result
+    type: "QUERY",
+    query: input
+  })
+}
+
+export function handleFilter(input) {
+  dispatcher.dispatch({
+    type: "FILTER",
+    filterBy: input
   })
 }

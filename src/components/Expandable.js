@@ -1,5 +1,6 @@
 import React from "react";
 import { loadUnit } from '../api';
+import OUStore from "../stores/OUStore"
 
 //Expands list item to show more detail
 var Expandable = React.createClass({
@@ -12,22 +13,21 @@ var Expandable = React.createClass({
   },
 
   handleClick: function(e) {
-    loadUnit(this.props.id).then((orgUnit) => {
+		var orgUnit = OUStore.getUnit(this.props.id)
 
-      var levelName = "unknown"
-      switch (orgUnit.level) {
-        case 1: levelName =  "Country"; break;
-        case 2: levelName =  "Province"; break;
-        case 3: levelName =  "District"; break;
-        case 4: levelName =  "Health facility"; break;
-      }
+		var levelName = "unknown"
+		switch (orgUnit.level) {
+			case 1: levelName =  "Country"; break;
+			case 2: levelName =  "Province"; break;
+			case 3: levelName =  "District"; break;
+			case 4: levelName =  "Health facility"; break;
+		}
 
-      this.setState(prevState => ({
-        expanded: !prevState.expanded,
-        code: orgUnit.code,
-        level: levelName
-      }));
-    });
+		this.setState(prevState => ({
+			expanded: !prevState.expanded,
+			code: orgUnit.code,
+			level: levelName
+		}));
   },
 
   render: function() {

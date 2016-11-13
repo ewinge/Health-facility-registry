@@ -127,7 +127,7 @@ body {
 
 .search {
   margin: 10px;
-  background-color: lightblue;
+  background-color: lightsteelblue;
   width: 30%;
   height: auto;
   text-align: center;
@@ -137,19 +137,45 @@ body {
 .search ol {
   padding: 10px 0px 10px 0px;
   list-style: none;
+  width: 95%;
+  margin: 0 auto;
 }
 
-.searchBar {
-  width: 95%;
+.filter {
+  padding: 0px;
+  overflow: auto;
+}
+
+.filter ol {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.filter ol li {
+  width: 35%;
+  float: left;
+  font-size: 16px;
+  padding-top: 6px;
+}
+
+.filter ol li:last-child {
+  width: 65%;
+  padding: 0px;
+}
+
+.input {
+  width: 100%;
   padding: 5px;
   font-size: 16px;
   border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 .searchList {
   padding: 0;
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
 }
 
 .searchList ul {
