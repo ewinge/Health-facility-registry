@@ -11,6 +11,7 @@ class OUStore extends EventEmitter {
       queryResult: [],
       filteredResult: [],
       filter: 'none',
+      levelString: ['none', 'country', 'province', 'district', 'facility']
     };
 
     //Loads all organization units from the start
@@ -25,6 +26,7 @@ class OUStore extends EventEmitter {
 
   //Search from all units
   search(query) {
+    query = query.toLowerCase();
     console.log("Search query:", query)
 
     var result = [];
@@ -34,32 +36,21 @@ class OUStore extends EventEmitter {
     });
 
     this.state.queryResult = result;
-
-    //If a filter is currently on, filter search query results
-    if (this.state.filter == 'none') {
-      this.emit("searchChange");
-
-    } else {
-      this.filter(this.state.filter);
-
-    }
+    this.filter(this.state.filter);
   }
 
   //Filter from query results
   filter(filterBy) {
     console.log("Filter by:", filterBy)
 
-    var level = 0
-    switch(filterBy) {
-      case "facility": { level = 4; break;}
-      case "province": { level = 2; break;}
-      case "district": { level = 3; break;}
-      case "country": { level = 1; break;}
-    }
-
-    var result = [];
     if (filterBy != "none") {
-      this.state.queryResult.forEach(function(orgUnit) {
+      var level = this.state.levelString.length;
+      while (level--) {
+        if (filterBy == this.state.levelString[level]) break;
+      }
+
+      var result = [];
+        this.state.queryResult.forEach(function(orgUnit) {
           if(orgUnit.level == level) {
             result.push(orgUnit);
           }
@@ -67,13 +58,13 @@ class OUStore extends EventEmitter {
 
       this.state.filteredResult = result;
 
-      //Emits a "filterChange" signal that SearchList listens to
-      this.emit("filterChange");
     } else {
 
       //If no filters are on, simply show the search query results
-      this.emit("searchChange");
+      this.state.filteredResult = this.state.queryResult;
     }
+
+    this.emit("listChange");
   }
 
   //Returns all organization units
@@ -91,9 +82,15 @@ class OUStore extends EventEmitter {
     return this.state.filteredResult;
   }
 
+  //Returns the levels' string version
+  getLevelString() {
+    return this.state.levelString;
+  }
+
   //Gets a unit using an id
   getUnit(id) {
-    for (var i = 0; i < this.state.queryResult.length; i++) {
+    var i = this.state.queryResult.length;
+    while (i--) {
       if (this.state.queryResult[i].id == id) {
         return this.state.queryResult[i];
       }
@@ -101,8 +98,38 @@ class OUStore extends EventEmitter {
     return {}
   }
 
+  //Returns the string equivalent of a level
+  getLevelString(level) {
+    if (level > 0 && level < this.state.levelString.length) {
+        return this.state.levelString[level];
+    }
+    return "unknown (" + level + ")";
+  }
+
+  //Return the coordinates of the facilities in filteredResult
+  getCoordinates() {
+    var coords = [];
+
+    var i = this.state.filteredResult.length;
+    while (i--) {
+
+      //Only facilities have coordinates
+      if (this.state.filteredResult[i].hasOwnProperty("coordinates") && this.state.filteredResult[i].level == 4) {
+
+        //Format of coordinates: "[lng,lat]"
+        var latLng = this.state.filteredResult[i].coordinates.replace("[", "").replace("]", "").split(",");
+
+        coords.push({
+          lat: parseFloat(latLng[1]),
+          lng: parseFloat(latLng[0])
+        });
+      }
+    }
+    return coords;
+  }
+
   handleActions(action) {
-    console.log("Action received:", action);
+    console.log("Action received", action);
 
     switch(action.type) {
       case "QUERY": {
@@ -111,7 +138,7 @@ class OUStore extends EventEmitter {
       }
 
       case "FILTER": {
-        this.state.filter = action.filterBy
+        this.state.filter = action.filterBy;
         this.filter(action.filterBy);
         break;
       }

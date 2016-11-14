@@ -10,13 +10,6 @@ var SearchList = React.createClass({
     };
   },
 
-  //Gets search query results from the OU store.
-  getQueryResult: function() {
-    this.setState({
-      items: OUStore.getQueryResult()
-    });
-  },
-
   //Gets filtered search query results from the OU store.
   getFilteredResult: function() {
     this.setState({
@@ -24,10 +17,9 @@ var SearchList = React.createClass({
     });
   },
 
-  //Eventhandler to update this objetc's items
+  //Listen to list changes in OUStore
   componentWillMount: function() {
-    OUStore.on("searchChange", this.getQueryResult);
-    OUStore.on("filterChange", this.getFilteredResult);
+    OUStore.on("listChange", this.getFilteredResult);
   },
 
   createList: function() {
@@ -39,7 +31,6 @@ var SearchList = React.createClass({
 
     if (listItems.length == 0) {
       return <p>No such unit found.</p>;
-
     } else {
       return (<ul>{listItems}</ul>);
     }

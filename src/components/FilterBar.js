@@ -1,5 +1,4 @@
 import React from "react";
-
 import * as SearchActions from "../actions/SearchActions";
 
 var FilterBar = React.createClass({
@@ -24,6 +23,5 @@ var FilterBar = React.createClass({
 		);
 	}
 });
-
 
 module.exports = FilterBar;
