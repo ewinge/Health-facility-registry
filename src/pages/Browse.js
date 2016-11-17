@@ -4,7 +4,7 @@ import List from '../components/List';
 import Form from '../components/Form';
 import OUList from '../components/OUList';
 
-export default class App extends Component {
+export default class Browse extends Component {
     constructor(props, context) {
         super(props, context);
 

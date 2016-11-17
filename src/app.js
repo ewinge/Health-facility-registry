@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, hashHistory} from "react-router";
 import NavigationBar from './components/NavigationBar';
 
 import Layout from './components/Layout'
-import App from './pages/App';
+import Browse from './pages/Browse';
 import Home from './pages/Home';
 import Edit from './pages/Edit';
 import Help from './pages/Help';
@@ -16,7 +16,7 @@ render(
 			<Route path="/" component={Layout}>	
 				<IndexRoute component={Home}></IndexRoute>
 				<Route path="edit" component={Edit}></Route>
-				<Route path="register" component={App}></Route>	
+				<Route path="browse" component={Browse}></Route>
 				<Route path="help" component={Help}></Route>	
 			</Route>
 		</Router>, 	
