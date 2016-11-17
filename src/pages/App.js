@@ -4,10 +4,6 @@ import List from '../components/List';
 import Form from '../components/Form';
 import OUList from '../components/OUList';
 
-/**
- * ES2015 class component
- * https://facebook.github.io/react/docs/reusable-components.html#es6-classes-and-react.createclass
- */
 export default class App extends Component {
     constructor(props, context) {
         super(props, context);
@@ -18,23 +14,7 @@ export default class App extends Component {
         };
 
         // Bind the functions that are passed around to the component
-        this.onItemClick = this.onItemClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onItemClick(item) {
-        // Remove the item from the local list.
-        // This will make it seem like it was deleted while we wait for the actual delete to complete.
-        this.setState({
-            items: this.state.items
-                .filter(organisationUnit => item.id !== organisationUnit.id)
-        });
-
-        // Delete the organisationUnit from the server. If it fails show a message to the user.
-        deleteOrganisationUnit(item)
-            .catch(() => alert(`Could not delete organisation unit ${item.displayName}`))
-            // In all cases (either success or failure) after deleting reload the list.
-            .then(() => this.loadOrganisationUnits());
     }
 
     onSubmit(formData) {
@@ -43,8 +23,6 @@ export default class App extends Component {
 
         // Save the organisation unit to the api
         saveOrganisationUnit(formData)
-            .then(() => this.loadOrganisationUnits())
-            .catch(() => alert(`Could save organisation unit ${item.displayName}`))
             .then(() => this.setState({ isSaving: false })); // After either success or failure set the isSaving state to false
     }
 
