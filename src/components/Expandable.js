@@ -1,43 +1,61 @@
 import React from "react";
 import { loadUnit } from '../api';
 import OUStore from "../stores/OUStore"
+import LocateButton from "./LocateButton"
 
 //Expands list item to show more detail
 var Expandable = React.createClass({
 	getInitialState: function() {
     return ({
         expanded: false,
-        code: "unknown",
-        level: "unknown"
+        orgUnit: OUStore.getUnit(this.props.id)
     })
   },
 
   handleClick: function(e) {
-		var orgUnit = OUStore.getUnit(this.props.id)
-
 		this.setState(prevState => ({
 			expanded: !prevState.expanded,
-			code: orgUnit.code,
-			level: OUStore.getLevelString(orgUnit.level)
 		}));
   },
 
   render: function() {
     if (this.state.expanded) {
-      return (
-        <li key={this.props.id} onClick={this.handleClick}>
-            <ol>
-              <li><b>{this.props.displayName}</b></li>
-              <li><b>Code</b>: {this.state.code}</li>
-              <li><b>Level</b>: {this.state.level}</li>
-            </ol>
-        </li>
-      );
+
+			//Only facilities (level 4) will have locate buttons
+			if (this.state.orgUnit.level == 4) {
+
+				//Not all facilities have coordinates
+				const locateDisabled = !this.props.orgUnit.hasOwnProperty('coordinates');
+				var coords = locateDisabled ? coords = "unknown" : coords = this.props.orgUnit.coordinates;
+
+				return (
+					<li key={this.props.id} onClick={this.handleClick}>
+							<ol>
+								<li><b>{this.props.orgUnit.displayName}</b></li>
+								<li><b>Code</b>: {this.props.orgUnit.code}</li>
+								<li><b>Level</b>: {OUStore.getLevelString(this.props.orgUnit.level)}</li>
+								<li><b>Coordinates</b>: {coords}</li>
+								<li><LocateButton disabled={locateDisabled} coords={coords}/></li>
+							</ol>
+					</li>
+				);
+
+			} else {
+				return (
+					<li key={this.props.id} onClick={this.handleClick}>
+							<ol>
+								<li><b>{this.props.orgUnit.displayName}</b></li>
+								<li><b>Code</b>: {this.props.orgUnit.code}</li>
+								<li><b>Level</b>: {OUStore.getLevelString(this.props.orgUnit.level)}</li>
+							</ol>
+					</li>
+				);
+			}
 
     } else {
       return (
         <li key={this.props.id} onClick={this.handleClick}>
-          {this.props.displayName}
+          {this.props.orgUnit.displayName}
         </li>
       );
     }

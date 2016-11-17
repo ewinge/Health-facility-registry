@@ -11,7 +11,7 @@ class OUStore extends EventEmitter {
       queryResult: [],
       filteredResult: [],
       filter: 'none',
-      levelString: ['none', 'country', 'province', 'district', 'facility']
+      levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
 
     //Loads all organization units from the start
@@ -115,17 +115,20 @@ class OUStore extends EventEmitter {
 
       //Only facilities have coordinates
       if (this.state.filteredResult[i].hasOwnProperty("coordinates") && this.state.filteredResult[i].level == 4) {
-
-        //Format of coordinates: "[lng,lat]"
-        var latLng = this.state.filteredResult[i].coordinates.replace("[", "").replace("]", "").split(",");
-
-        coords.push({
-          lat: parseFloat(latLng[1]),
-          lng: parseFloat(latLng[0])
-        });
+        coords.push(this.stringToLatLng(this.state.filteredResult[i].coordinates));
       }
     }
     return coords;
+  }
+
+  //Converts string coordinates to LatLng object recgnized by google maps.
+  //Format of coordinates: "[lng,lat]"
+  stringToLatLng(coordsString) {
+    const latLng = coordsString.replace("[", "").replace("]", "").split(",");
+    return ({
+      lat: parseFloat(latLng[1]),
+      lng: parseFloat(latLng[0])
+    })
   }
 
   handleActions(action) {
@@ -143,7 +146,10 @@ class OUStore extends EventEmitter {
         break;
       }
 
-      //More actions here
+      case "LOCATE": {
+        this.emit("locate", this.stringToLatLng(action.coords));
+        break;
+      }
     }
   }
 }
