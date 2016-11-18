@@ -13,3 +13,10 @@ export function handleFilter(input) {
     filterBy: input
   })
 }
+
+export function handleLocate(input) {
+  dispatcher.dispatch({
+    type: "LOCATE",
+    coords: input
+  })
+}

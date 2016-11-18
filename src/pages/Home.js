@@ -12,10 +12,13 @@ var Home = React.createClass({
 			lng: -13.178
 		}
 
+		//Default map zoom
+		const zoom = 10;
+
 		return (
 			<div className="home">
 				<Search />
-				<Map center={location} />
+				<Map center={location} zoom={zoom}/>
 			</div>
 		);
 	}

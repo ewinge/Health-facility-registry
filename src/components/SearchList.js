@@ -26,7 +26,7 @@ var SearchList = React.createClass({
     var listItems = this.state.items.map(function(item, i) {
 
       //console.log(i, item.displayName); //For testing purposes
-      return <Expandable key={item.id} id={item.id} displayName={item.displayName} />
+      return <Expandable key={item.id} id={item.id} orgUnit={item} />
     });
 
     if (listItems.length == 0) {
