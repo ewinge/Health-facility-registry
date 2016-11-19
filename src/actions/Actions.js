@@ -34,7 +34,7 @@ export function handleUpdate(input) {
 }
 
 //Reloads units from server
-export function handleUpdate() {
+export function handleReload() {
   dispatcher.dispatch({
     type: "RELOAD",
   })
