@@ -33,6 +33,13 @@ export function handleUpdate(input) {
   })
 }
 
+//Reloads units from server
+export function handleUpdate() {
+  dispatcher.dispatch({
+    type: "RELOAD",
+  })
+}
+
 //Called when a new unit is to be added to the local store
 export function handleNewUnit(input) {
   dispatcher.dispatch({
