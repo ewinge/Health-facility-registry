@@ -32,6 +32,16 @@ function onlySuccessResponses(response) {
 }
 
 export function saveOrganisationUnit(organisationUnit) {
+    // use PUT to change existing units
+    return fetch(`${serverUrl}/organisationUnits`, Object.assign({}, fetchOptions, { method: 'PUT', body: JSON.stringify(organisationUnit) }))
+        .then(onlySuccessResponses)
+        // Parse the json response
+        .then(response => response.json())
+        // Log any errors to the console. (Should probably do some better error handling);
+        .catch(error => console.error(error));
+}
+
+export function createOrganisationUnit(organisationUnit) {
     // POST the payload to the server to save the organisationUnit
     return fetch(`${serverUrl}/organisationUnits`, Object.assign({}, fetchOptions, { method: 'POST', body: JSON.stringify(organisationUnit) }))
         .then(onlySuccessResponses)
