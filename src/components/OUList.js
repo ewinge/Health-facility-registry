@@ -36,7 +36,7 @@ export default class OUList extends Component {
         const listItems = this.state.items
             .map(item => {
                 return (
-                    <Node item={item} key={item.id}/>
+                    <Node item={item} key={item.id} edit={this.props.edit}/>
                 );
             });
 
@@ -73,21 +73,32 @@ class Node extends Component {
     }
     
     render() {
-        if (this.state.expanded) {
-            return (
-                <li key={this.props.item.id}>
-                    <img src="images/open.gif" onClick={this.handleClick} />
-                    {this.props.item.displayName}
-                    <OUList parent={this.props.item.id} />
-                </li>
-            );
-        } else {
-            return (
-                <li key={this.props.item.id}>
-                    <img src="images/closed.gif" onClick={this.handleClick} />
-                    {this.props.item.displayName}
-                </li>
-            );
-        }
+        return (
+            <li key={this.props.item.id}>
+                <Link onClick={this.handleClick}>
+                    <Expander expanded={this.state.expanded} />
+                </Link>
+                {this.props.item.displayName}
+                [<Link onClick={() => this.props.edit(this.props.item.id)}>edit</Link>]
+                {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
+            </li>
+        );
     }
+}
+
+function Link({onClick, children}) {
+    return(
+        <a href="#" onClick={event => {
+            event.preventDefault();
+            onClick && onClick();
+        }}>
+            {children}
+        </a>
+    );
+}
+
+function Expander({expanded,onClick}) {
+    return (
+        <img src={expanded ? "images/open.gif" : "images/closed.gif"} onClick={onClick} />
+    );
 }

@@ -10,10 +10,12 @@ export default class Browse extends Component {
         // Set some initial state variables that are used within the component
         this.state = {
             isSaving: false,
+            editing: false,
         };
 
         // Bind the functions that are passed around to the component
         this.onSubmit = this.onSubmit.bind(this);
+        this.editUnit = this.editUnit.bind(this);
     }
 
     onSubmit(formData) {
@@ -36,7 +38,7 @@ export default class Browse extends Component {
         return (
             <div className="app">
             <OUList parent="" edit={this.editUnit}/>
-            {this.state.editing ? <Form edit={editing} onSubmit={this.onSubmit} /> : ""}
+            {this.state.editing ? <Form edit={this.state.editing} onSubmit={this.onSubmit} /> : ""}
             </div>
         );
     }
