@@ -1,6 +1,6 @@
 import React from "react";
 import OUStore from "../stores/OUStore";
-import { handleLocate} from "../actions/SearchActions";
+import { handleLocate} from "../actions/Actions";
 
 var LocateButton = React.createClass({
 

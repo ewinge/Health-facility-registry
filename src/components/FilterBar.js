@@ -1,5 +1,5 @@
 import React from "react";
-import * as SearchActions from "../actions/SearchActions";
+import * as SearchActions from "../actions/Actions";
 
 var FilterBar = React.createClass({
 

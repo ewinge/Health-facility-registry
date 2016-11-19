@@ -14,14 +14,16 @@ class OUStore extends EventEmitter {
       levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
 
-    //Loads all organization units from the start
-    loadAllUnits().then((organisationUnits) => {
-      this.init(organisationUnits);
-    });
+    this.loadUnits();
   }
 
-  init(data) {
-    this.state.organizationUnits = data;
+  //Loads all organization units from the start
+  loadUnits() {
+
+    //From the api
+    loadAllUnits().then((organisationUnits) => {
+      this.state.organizationUnits = organisationUnits;
+    });
   }
 
   //Search from all units
@@ -131,6 +133,29 @@ class OUStore extends EventEmitter {
     })
   }
 
+  //Updates a unit.
+  updateUnit(orgUnit) {
+
+    console.log("KOM HIT!");
+    //End if given org unit has no id property
+    if (!orgUnit.hasOwnProperty("id")) {
+      console.log("WARNING: Not update unit with no id", orgUnit);
+      return;
+    }
+
+    var i = this.state.organizationUnits.length;
+    while (i--) {
+      if (this.state.organizationUnits[i].id == orgUnit.id) {
+        this.state.organizationUnits[i] = orgUnit;
+        return;
+      }
+    }
+
+    //If no org units with a the same id as the one given, error
+    console.log("WARNING: No org unit found with this id:", orgUnit.id);
+  }
+
+  //Handles actions by the components
   handleActions(action) {
     console.log("Action received", action);
 
@@ -148,6 +173,21 @@ class OUStore extends EventEmitter {
 
       case "LOCATE": {
         this.emit("locate", this.stringToLatLng(action.coords));
+        break;
+      }
+
+      case "RELOAD": {
+        loadUnits();
+        break;
+      }
+
+      case "NEW_UNIT": {
+        this.state.organizationUnits.push(action.newUnit);
+        break;
+      }
+
+      case "UPDATE_UNIT": {
+        this.updateUnit(action.updatedUnit);
         break;
       }
     }

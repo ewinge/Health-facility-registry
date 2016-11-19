@@ -1,7 +1,7 @@
 import React from "react";
 
 import OUStore from "../stores/OUStore"
-import * as SearchActions from "../actions/SearchActions";
+import * as SearchActions from "../actions/Actions";
 
 var SearchBar = React.createClass({
 
