@@ -24,14 +24,20 @@ export default class Browse extends Component {
         // Save the organisation unit to the api
         saveOrganisationUnit(formData)
             .then(() => this.setState({ isSaving: false })); // After either success or failure set the isSaving state to false
+        
+        this.setState({editing: false});
+    }
+    
+    editUnit(id) {
+        this.setState({editing: id});
     }
 
     render() {
         // We hide the form component when we are in the saving state.
         return (
             <div className="app">
-            <OUList parent="" />
-            {this.state.isSaving ? <div>Saving organisation unit</div> : <Form onSubmit={this.onSubmit} />}
+            <OUList parent="" edit={this.editUnit}/>
+            {this.state.editing ? <Form edit={editing} onSubmit={this.onSubmit} /> : ""}
             </div>
         );
     }

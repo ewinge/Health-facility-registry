@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { loadUnit } from '../api';
 
 export default class Form extends Component {
     constructor(...args) {
@@ -9,11 +10,18 @@ export default class Form extends Component {
             shortName: '',
             openingDate: '',
         };
-
+        
         this.onSubmitClick = this.onSubmitClick.bind(this);
         this.setName = this.setName.bind(this);
         this.setShortName = this.setShortName.bind(this);
         this.setOpeningDate = this.setOpeningDate.bind(this);
+    }
+    
+    componentDidMount() {
+        if (this.props.edit && this.props.edit != "") {
+          loadUnit(this.props.edit)
+              .then(unit => this.setState(unit));
+          }
     }
 
     onSubmitClick(event) {
