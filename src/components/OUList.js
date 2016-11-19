@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
-import List from './List';
 
 /**
  * ES2015 class component
@@ -34,14 +33,61 @@ export default class OUList extends Component {
     }
 
     render() {
-        // Render the app which includes the list component and the form component
-        // We hide the form component when we are in the saving state.
+        const listItems = this.state.items
+            .map(item => {
+                return (
+                    <Node item={item} key={item.id}/>
+                );
+            });
+
         return (
             <div className="OUlist">
-                <List
-                    items={this.state.items}
-                />
+                <ul>
+                    {listItems}
+                </ul>
             </div>
         );
+    }
+}
+
+
+class Node extends Component {
+    constructor(props) {
+        super(props);
+
+        // Set some initial state variables
+        this.state = {
+            expanded: false
+        };
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(e) {
+//        e.preventDefault();
+        
+        // invert expanded
+        this.setState(prevState => ({
+            expanded: !prevState.expanded
+        }));
+    }
+    
+    render() {
+        if (this.state.expanded) {
+            return (
+                <li key={this.props.item.id}>
+                    <img src="images/open.gif" onClick={this.handleClick} />
+                    {this.props.item.displayName}
+                    <OUList parent={this.props.item.id} />
+                </li>
+            );
+        } else {
+            return (
+                <li key={this.props.item.id}>
+                    <img src="images/closed.gif" onClick={this.handleClick} />
+                    {this.props.item.displayName}
+                </li>
+            );
+        }
     }
 }

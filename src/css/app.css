@@ -43,6 +43,10 @@ body {
   cursor: pointer;
 }
 
+.OUlist ul {
+  list-style: none;
+}
+
 .form {
   background-color: #DDD;
   flex: 1;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
-import List from '../components/List';
 import Form from '../components/Form';
 import OUList from '../components/OUList';
 
