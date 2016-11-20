@@ -26,7 +26,7 @@ export default class Browse extends Component {
         saveOrganisationUnit(formData)
             .then(() => this.setState({ isSaving: false })); // After either success or failure set the isSaving state to false
         
-        this.setState({editing: false});
+//        this.setState({editing: false});
     }
     
     editUnit(id) {

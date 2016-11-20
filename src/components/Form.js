@@ -20,7 +20,12 @@ export default class Form extends Component {
     componentDidMount() {
         if (this.props.edit && this.props.edit != "") {
           loadUnit(this.props.edit)
-              .then(unit => this.setState(unit));
+              .then(unit => this.setState({
+                  id: unit.id,
+                  name: unit.name,
+                  shortName: unit.shortName,
+                  openingDate: unit.openingDate,
+              }));
           }
     }
 
