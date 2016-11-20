@@ -32,12 +32,19 @@ function onlySuccessResponses(response) {
 }
 
 export function saveOrganisationUnit(organisationUnit) {
-    console.log("saving: ", organisationUnit);
     const id = organisationUnit.id;
-    //Should we POST a new unit, or update an existing one?
-    const method = (id && id != "" ? "PUT" : "POST");
+    let method, URL;
+    if (id && id != "") { //Should we POST a new unit, or update an existing one?
+        method = "PUT";
+        URL = `${serverUrl}/organisationUnits/${id}`;
+    } else {
+        method = "POST";
+        URL = `${serverUrl}/organisationUnits`;
+    }
+    
+    console.log("saving: ", method, organisationUnit);
 
-    return fetch(`${serverUrl}/organisationUnits`, Object.assign({}, fetchOptions, { method: method, body: JSON.stringify(organisationUnit) }))
+    return fetch(URL, Object.assign({}, fetchOptions, { method: method, body: JSON.stringify(organisationUnit) }))
         .then(onlySuccessResponses)
         // Parse the json response
         .then(response => response.json())
