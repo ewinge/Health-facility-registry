@@ -11,16 +11,24 @@ export default class OUList extends Component {
 
         // Set some initial state variables that are used within the component
         this.state = {
-            isSaving: false,
             isLoading: true,
             items: [],
         };
+        
+        this.deleteUnit = this.deleteUnit.bind(this);
     }
 
     componentDidMount() {
         this.loadOrgUnits();
     }
-
+    
+    deleteUnit(item) {
+        deleteOrganisationUnit(item.id)
+            .catch(() => alert(`Could not delete organisation unit ${item.displayName}`))
+            // reload the list
+            .then(() => this.loadOrgUnits());
+    }
+    
     loadOrgUnits() {
         // Loads the organisation units from the api and sets the loading state to false and puts the items onto the component state.
         loadOrganisationUnits(this.props.parent)
@@ -36,7 +44,12 @@ export default class OUList extends Component {
         const listItems = this.state.items
             .map(item => {
                 return (
-                    <Node item={item} key={item.id} edit={this.props.edit}/>
+                    <Node 
+                        item={item}
+                        key={item.id}
+                        edit={this.props.edit} 
+                        deleteUnit={this.deleteUnit} 
+                    />
                 );
             });
 
@@ -80,6 +93,7 @@ class Node extends Component {
                 </Link>
                 {this.props.item.displayName}
                 [<Link onClick={() => this.props.edit(this.props.item.id)}>edit</Link>]
+                [<Link onClick={() => this.props.deleteUnit(this.props.item)}>delete</Link>]
                 {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
             </li>
         );

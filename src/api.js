@@ -36,6 +36,7 @@ export function saveOrganisationUnit(organisationUnit) {
     const id = organisationUnit.id;
     //Should we POST a new unit, or update an existing one?
     const method = (id && id != "" ? "PUT" : "POST");
+
     return fetch(`${serverUrl}/organisationUnits`, Object.assign({}, fetchOptions, { method: method, body: JSON.stringify(organisationUnit) }))
         .then(onlySuccessResponses)
         // Parse the json response
@@ -44,10 +45,10 @@ export function saveOrganisationUnit(organisationUnit) {
         .catch(error => console.error(error));
 }
 
-export function deleteOrganisationUnit(organisationUnit) {
+export function deleteOrganisationUnit(id) {
     // Send DELETE request to the server to delete the organisation unit
     return fetch(
-        `${serverUrl}/organisationUnits/${organisationUnit.id}`,
+        `${serverUrl}/organisationUnits/${id}`,
         {
             headers: fetchOptions.headers,
             method: 'DELETE',

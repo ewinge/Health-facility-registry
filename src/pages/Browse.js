@@ -11,6 +11,7 @@ export default class Browse extends Component {
         this.state = {
             isSaving: false,
             editing: false,
+            root: "",
         };
 
         // Bind the functions that are passed around to the component
@@ -34,10 +35,9 @@ export default class Browse extends Component {
     }
 
     render() {
-        // We hide the form component when we are in the saving state.
         return (
             <div className="app">
-            <OUList parent="" edit={this.editUnit}/>
+            <OUList parent={this.state.root} edit={this.editUnit} />
             {this.state.editing ? <Form edit={this.state.editing} onSubmit={this.onSubmit} /> : ""}
             </div>
         );
