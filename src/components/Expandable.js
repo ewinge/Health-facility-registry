@@ -26,7 +26,7 @@ var Expandable = React.createClass({
 
 				//Not all facilities have coordinates
 				const locateDisabled = !this.props.orgUnit.hasOwnProperty('coordinates');
-				var coords = locateDisabled ? coords = "unknown" : coords = this.props.orgUnit.coordinates;
+				var coords = locateDisabled ? coords = "unavailable" : coords = this.props.orgUnit.coordinates.replace(/[\[\]']+/g, '');
 
 				return (
 					<li key={this.props.id} onClick={this.handleClick}>

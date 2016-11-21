@@ -4,13 +4,17 @@ import { handleLocate} from "../actions/Actions";
 
 var LocateButton = React.createClass({
 
-  onClick: function() {
+  onClick: function(e) {
+
+    //Makes sure that parent of button's click event isn't triggered as well.
+    e.stopPropagation();
+    
     handleLocate(this.props.coords);
   },
 
   render: function() {
     return (
-      <button type="button" disabled={this.props.disabled} onClick={this.onClick}>Locate</button>
+      <button className="locateButton" type="button" disabled={this.props.disabled} onClick={this.onClick}>Locate</button>
     );
   }
 })

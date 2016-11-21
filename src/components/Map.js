@@ -33,7 +33,8 @@ var Map = React.createClass({
   //Called when an actiive locate button is pressed
   pan: function(coords) {
     this.setState({
-      center: coords
+      center: coords,
+      zoom: 10
     });
   },
 
@@ -52,8 +53,8 @@ var Map = React.createClass({
           googleMapElement = {
             <GoogleMap
               ref={(map) => map && map.panTo(this.state.center)}
-              defaultZoom={this.state.zoom}
-              defaultCenter={this.state.center}
+              zoom={this.state.zoom}
+              center={this.state.center}
               options={{mapTypeControl: false}}>
               {this.state.markers}
             </GoogleMap>

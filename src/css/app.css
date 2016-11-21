@@ -95,7 +95,7 @@ body {
 .nav ul {
   list-style-type: none;
   margin: 0;
-  padding: 100;
+  padding: 0px;
   width: 100%;
 }
 
@@ -126,15 +126,16 @@ body {
 }
 
 .home {
-  height: 90%;
-  width: 100%;
-  margin-top: 5px;
+  height: calc(100% - 60px);
+  width: calc(100% - 10px);
+  margin: 5px;
   text-align: center;
 }
 
 .map {
   height: 100%;
-  width: 67%;
+  width: calc(70% - 5px);
+  margin-left: 5px;
   border-radius: 2px;
   background-color: lightsteelblue;
   display: inline-block;
@@ -209,10 +210,26 @@ body {
   cursor: pointer;
 }
 
-.searchList ul li ol li{
-  padding: 0;
-  margin-top: 0;
+.searchList li:hover {
+  background-color: #E4EAEB;
+}
+
+.searchList ul li ol {
+  padding: 0px;
+}
+
+.searchList ul li ol li {
+  background: inherit;
+  padding: 0px;
+  margin-top: 0px;
   border: hidden;
   border-radius: 0px;
   text-align: left;
+}
+
+.locateButton {
+  margin-top: 5px;
+  border-radius: 3px;
+  padding: 3px;
+  width: 100%;
 }

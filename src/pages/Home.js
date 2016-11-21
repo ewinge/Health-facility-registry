@@ -8,12 +8,12 @@ var Home = React.createClass({
 
 		//Default map center for now
 		const location = {
-			lat: 8.4613,
-			lng: -13.178
+			lat: 8.7208,
+			lng: -11.9388
 		}
 
 		//Default map zoom
-		const zoom = 10;
+		const zoom = 8;
 
 		return (
 			<div className="home">

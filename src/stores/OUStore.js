@@ -136,7 +136,6 @@ class OUStore extends EventEmitter {
   //Updates a unit.
   updateUnit(orgUnit) {
 
-    console.log("KOM HIT!");
     //End if given org unit has no id property
     if (!orgUnit.hasOwnProperty("id")) {
       console.log("WARNING: Not update unit with no id", orgUnit);
