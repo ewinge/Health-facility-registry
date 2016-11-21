@@ -23,6 +23,9 @@ class OUStore extends EventEmitter {
     //From the api
     loadAllUnits().then((organisationUnits) => {
       this.state.organizationUnits = organisationUnits;
+      this.state.queryResult = organisationUnits;
+      this.state.filteredResult = organisationUnits;
+      this.emit("listChange");
     });
   }
 
