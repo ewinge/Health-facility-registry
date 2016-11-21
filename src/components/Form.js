@@ -9,12 +9,16 @@ export default class Form extends Component {
             name: '',
             shortName: '',
             openingDate: '',
+            level: '',
+            coordinates: "[0.0,0.0]",
         };
         
         this.onSubmitClick = this.onSubmitClick.bind(this);
         this.setName = this.setName.bind(this);
         this.setShortName = this.setShortName.bind(this);
         this.setOpeningDate = this.setOpeningDate.bind(this);
+        this.setLevel = this.setLevel.bind(this);
+        this.setCoordinates = this.setCoordinates.bind(this);
     }
     
     componentDidMount() {
@@ -45,6 +49,14 @@ export default class Form extends Component {
     setOpeningDate(event) {
         this.setState({ openingDate: event.target.value });
     }
+    
+    setLevel(event) {
+        this.setState({level: event.target.value});
+    }
+    
+    setCoordinates(event) {
+        this.setState({ coordinates: event.target.value });
+    }
 
     isFormValid() {
         return !(this.state.name && this.state.shortName && this.state.openingDate);
@@ -71,6 +83,18 @@ export default class Form extends Component {
                             <span>Opening date</span>
                             <input type="date" value={this.state.openingDate} onChange={this.setOpeningDate} />
                         </label>
+                    </div>
+                    <div>
+                    <label>
+                        <span>Level</span>
+                        <input type="date" value={this.state.level} onChange={this.setLevel} />
+                    </label>
+                    </div>
+                    <div>
+                    <label>
+                        <span>Coordinates</span>
+                        <input type="date" value={this.state.coordinates} onChange={this.setCoordinates} />
+                    </label>
                     </div>
                     <div>
                         <button disabled={this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
