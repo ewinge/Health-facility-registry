@@ -18,14 +18,13 @@ export default class Form extends Component {
     }
     
     componentDidMount() {
-        if (this.props.edit && this.props.edit != "") {
-          loadUnit(this.props.edit)
-              .then(unit => this.setState({
-                  id: unit.id,
-                  name: unit.name,
-                  shortName: unit.shortName,
-                  openingDate: unit.openingDate,
-              }));
+        this.componentWillReceiveProps(this.props);
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.edit && nextProps.edit != "") {
+            loadUnit(nextProps.edit)
+                .then(unit => this.setState(unit));
           }
     }
 

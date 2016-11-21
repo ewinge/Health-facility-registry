@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
+import { loadUnit } from '../api';
 
 /**
  * ES2015 class component
