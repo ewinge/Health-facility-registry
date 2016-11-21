@@ -18,13 +18,13 @@ var SearchList = React.createClass({
     });
   },
 
-  setLoading: function(bool) {
+  setLoading: function() {
     this.setState({
       loading: true
     });
   },
 
-  doneLoading: function(bool) {
+  doneLoading: function() {
     this.setState({
       loading: false
     });

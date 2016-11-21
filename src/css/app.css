@@ -142,6 +142,16 @@ body {
   vertical-align: top;
 }
 
+.infoWindow {
+  text-align: left;
+}
+
+.infoWindow ul {
+  padding: 0px;
+  margin-right: 5px;
+  list-style-type: none;
+}
+
 .search {
   background-color: lightsteelblue;
   width: 30%;

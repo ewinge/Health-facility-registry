@@ -97,19 +97,24 @@ class OUStore extends EventEmitter {
     return "unknown (" + level + ")";
   }
 
-  //Return the coordinates of the facilities in filteredResult
+
+  //Data for map markers
   getCoordinates() {
-    var coords = [];
+    var hasCoords = [];
 
     var i = this.state.filteredResult.length;
     while (i--) {
 
-      //Only facilities have coordinates
+      //Only facilities that have coordinates are taken into account
       if (this.state.filteredResult[i].hasOwnProperty("coordinates") && this.state.filteredResult[i].level == 4) {
-        coords.push(this.stringToLatLng(this.state.filteredResult[i].coordinates));
+        hasCoords.push({
+          coordinates: this.stringToLatLng(this.state.filteredResult[i].coordinates),
+          orgUnit: this.state.filteredResult[i],
+          showInfo: false
+        })
       }
     }
-    return coords;
+    return hasCoords;
   }
 
   //Converts string coordinates to LatLng object recgnized by google maps.
@@ -145,7 +150,7 @@ class OUStore extends EventEmitter {
 
   //Handles actions by the components
   handleActions(action) {
-    console.log("Action received", action);
+    console.log("Action received:", action.type);
 
     switch(action.type) {
       case "QUERY": {
