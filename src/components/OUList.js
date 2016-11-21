@@ -21,7 +21,7 @@ export default class OUList extends Component {
     componentDidMount() {
         this.loadOrgUnits();
     }
-    
+
     deleteUnit(item) {
         deleteOrganisationUnit(item.id)
             .catch(() => alert(`Could not delete organisation unit ${item.displayName}`))
@@ -70,31 +70,53 @@ class Node extends Component {
 
         // Set some initial state variables
         this.state = {
-            expanded: false
+            expanded: false,
+            item: this.props.item,
         };
 
         this.handleClick = this.handleClick.bind(this);
+        this.saveUnit = this.saveUnit.bind(this);
+        this.editUnit = this.editUnit.bind(this);
+        this.update = this.update.bind(this);
     }
 
+    saveUnit(data) {
+        //Update local data
+        this.setState({item: data});
+        // Save the organisation unit to the api
+        saveOrganisationUnit(data)
+            .then(this.update);
+    }
+    
+    update() {
+        loadUnit(this.props.item.id)
+            .then(unit => this.setState({item: unit}));
+    }
+    
     handleClick(e) {
-//        e.preventDefault();
-        
         // invert expanded
         this.setState(prevState => ({
             expanded: !prevState.expanded
         }));
     }
     
+    editUnit(id) {
+        this.props.edit(id, this.saveUnit);
+    }
+
     render() {
         return (
-            <li key={this.props.item.id}>
+            <li key={this.state.item.id}>
                 <Link onClick={this.handleClick}>
                     <Expander expanded={this.state.expanded} />
                 </Link>
-                {this.props.item.displayName}
-                [<Link onClick={() => this.props.edit(this.props.item.id)}>edit</Link>]
-                [<Link onClick={() => this.props.deleteUnit(this.props.item)}>delete</Link>]
-                {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
+                {this.state.item.name ? this.state.item.name : this.state.item.displayName}
+                [
+                <Link onClick={() => this.editUnit(this.state.item.id)}>edit</Link>
+                |
+                <Link onClick={() => this.props.deleteUnit(this.state.item)}>delete</Link>
+                ]
+                {this.state.expanded ? <OUList parent={this.state.item.id} /> : ""}
             </li>
         );
     }

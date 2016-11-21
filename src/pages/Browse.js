@@ -9,36 +9,27 @@ export default class Browse extends Component {
 
         // Set some initial state variables that are used within the component
         this.state = {
-            isSaving: false,
             editing: false,
+            onSubmit: false,
             root: "",
         };
 
         // Bind the functions that are passed around to the component
-        this.onSubmit = this.onSubmit.bind(this);
         this.editUnit = this.editUnit.bind(this);
     }
-
-    onSubmit(formData) {
-        // Set the component state to saving
-        this.setState({ isSaving: true });
-
-        // Save the organisation unit to the api
-        saveOrganisationUnit(formData)
-            .then(() => this.setState({ isSaving: false })); // After either success or failure set the isSaving state to false
-        
-//        this.setState({editing: false});
-    }
     
-    editUnit(id) {
-        this.setState({editing: id});
+    editUnit(id,onSubmit) {
+        this.setState({
+            editing: id,
+            onSubmit: onSubmit,
+        });
     }
 
     render() {
         return (
             <div className="app">
             <OUList parent={this.state.root} edit={this.editUnit} />
-            {this.state.editing ? <Form edit={this.state.editing} onSubmit={this.onSubmit} /> : ""}
+            {this.state.editing ? <Form edit={this.state.editing} onSubmit={this.state.onSubmit} /> : ""}
             </div>
         );
     }
