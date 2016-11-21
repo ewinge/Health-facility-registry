@@ -13,20 +13,6 @@ class OUStore extends EventEmitter {
       filter: 'none',
       levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
-
-    this.loadUnits();
-  }
-
-  //Loads all organization units from the start
-  loadUnits() {
-
-    //From the api
-    loadAllUnits().then((organisationUnits) => {
-      this.state.organizationUnits = organisationUnits;
-      this.state.queryResult = organisationUnits;
-      this.state.filteredResult = organisationUnits;
-      this.emit("listChange");
-    });
   }
 
   //Search from all units
@@ -178,11 +164,6 @@ class OUStore extends EventEmitter {
         break;
       }
 
-      case "RELOAD": {
-        loadUnits();
-        break;
-      }
-
       case "NEW_UNIT": {
         this.state.organizationUnits.push(action.newUnit);
         break;
@@ -191,6 +172,17 @@ class OUStore extends EventEmitter {
       case "UPDATE_UNIT": {
         this.updateUnit(action.updatedUnit);
         break;
+      }
+
+      case "FETCHING_UNITS": {
+        this.emit("listFetching");
+        console.log("Loading units...");
+      }
+
+      case "RECEIVED_UNITS": {
+        this.state.organizationUnits = action.orgUnits;
+        this.emit("listReceived");
+        console.log("Loading complete");
       }
     }
   }

@@ -8,7 +8,7 @@ var Expandable = React.createClass({
 	getInitialState: function() {
     return ({
         expanded: false,
-        orgUnit: OUStore.getUnit(this.props.id)
+        orgUnit: this.props.orgUnit
     })
   },
 

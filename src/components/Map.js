@@ -8,7 +8,7 @@ var Map = React.createClass({
     return ({
       center: this.props.center,
       zoom: this.props.zoom,
-      markers: []
+      markers: [],
     });
   },
 
@@ -34,7 +34,7 @@ var Map = React.createClass({
   pan: function(coords) {
     this.setState({
       center: coords,
-      zoom: 10
+      zoom: 12
     });
   },
 
@@ -42,6 +42,10 @@ var Map = React.createClass({
   componentWillMount: function() {
     OUStore.on("listChange", this.getMarkers);
     OUStore.on("locate", this.pan)
+  },
+
+  onClick: function(e) {
+    console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
   },
 
   render: function() {
@@ -53,6 +57,7 @@ var Map = React.createClass({
           googleMapElement = {
             <GoogleMap
               ref={(map) => map && map.panTo(this.state.center)}
+              onClick={this.onClick}
               zoom={this.state.zoom}
               center={this.state.center}
               options={{mapTypeControl: false}}>

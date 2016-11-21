@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher";
-
+import { loadAllUnits } from "../api"
 
 //Called when a new search query in entered
 export function handleQuery(input) {
@@ -33,17 +33,23 @@ export function handleUpdate(input) {
   })
 }
 
-//Reloads units from server
-export function handleReload() {
-  dispatcher.dispatch({
-    type: "RELOAD",
-  })
-}
-
 //Called when a new unit is to be added to the local store
 export function handleNewUnit(input) {
   dispatcher.dispatch({
     type: "NEW_UNIT",
     newUnit: input
   })
+}
+
+//Called to load all organization units
+export function handleLoadAllUnits() {
+  dispatcher.dispatch({type: "FETCHING_UNITS"})
+
+  var orgUnits = loadAllUnits().then((organisationUnits) => {
+
+    dispatcher.dispatch({
+      type: "RECEIVED_UNITS",
+      orgUnits: organisationUnits
+    })
+  });
 }

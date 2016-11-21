@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "../components/Search";
 import Map from "../components/Map";
-import OUStore from "../stores/OUStore";
+import { handleLoadAllUnits } from "../actions/Actions";
 
 var Home = React.createClass({
 	render: function () {
@@ -14,6 +14,9 @@ var Home = React.createClass({
 
 		//Default map zoom
 		const zoom = 8;
+
+		//Loads organization units into the OUStore
+		handleLoadAllUnits();
 
 		return (
 			<div className="home">
