@@ -27,7 +27,7 @@ export default class Browse extends Component {
      * @param parent of new unit
      */
     editUnit(id, onSubmit, parent) {
-        console.log("edit:", id, onSubmit, parent);
+//        console.log("edit:", id, onSubmit, parent);
         this.setState({
             editing: id,
             onSubmit: onSubmit,

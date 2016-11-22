@@ -5,13 +5,16 @@ export default class Form extends Component {
     constructor(...args) {
         super(...args);
 
-        this.state = {
+        //For clearing the form
+        this.emptyState = {
             name: '',
             shortName: '',
             openingDate: '',
             level: '',
             coordinates: "[0.0,0.0]",
         };
+        
+        this.state = Object.assign({}, this.emptyState);
         
         this.onSubmitClick = this.onSubmitClick.bind(this);
         this.setName = this.setName.bind(this);
@@ -29,6 +32,7 @@ export default class Form extends Component {
         //when editing a new child
         if (nextProps.parent) {
             this.setState({parent: nextProps.parent});
+            this.setState(this.emptyState);
         }
         
         //When editing  an existing unit, load data

@@ -124,7 +124,7 @@ class Node extends Component {
                 |
                 <Link onClick={() => this.props.deleteUnit(this.state.item)}>delete</Link>
                 ]
-                {this.state.expanded ? <OUList parent={this.state.item.id} /> : ""}
+                {this.state.expanded ? <OUList parent={this.state.item.id} edit={this.props.edit} /> : ""}
             </li>
         );
     }
