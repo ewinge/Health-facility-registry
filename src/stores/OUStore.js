@@ -97,36 +97,6 @@ class OUStore extends EventEmitter {
     return "unknown (" + level + ")";
   }
 
-
-  //Data for map markers
-  getCoordinates() {
-    var hasCoords = [];
-
-    var i = this.state.filteredResult.length;
-    while (i--) {
-
-      //Only facilities that have coordinates are taken into account
-      if (this.state.filteredResult[i].hasOwnProperty("coordinates") && this.state.filteredResult[i].level == 4) {
-        hasCoords.push({
-          coordinates: this.stringToLatLng(this.state.filteredResult[i].coordinates),
-          orgUnit: this.state.filteredResult[i],
-          showInfo: false
-        })
-      }
-    }
-    return hasCoords;
-  }
-
-  //Converts string coordinates to LatLng object recgnized by google maps.
-  //Format of coordinates: "[lng,lat]"
-  stringToLatLng(coordsString) {
-    const latLng = coordsString.replace("[", "").replace("]", "").split(",");
-    return ({
-      lat: parseFloat(latLng[1]),
-      lng: parseFloat(latLng[0])
-    })
-  }
-
   //Updates a unit.
   updateUnit(orgUnit) {
 
@@ -165,7 +135,9 @@ class OUStore extends EventEmitter {
       }
 
       case "LOCATE": {
-        this.emit("locate", this.stringToLatLng(action.coords));
+        console.log(typeof action.coords);
+        const coords = JSON.parse(action.coords);
+        this.emit("locate", {lat: coords[1], lng: coords[0]});
         break;
       }
 
@@ -182,12 +154,14 @@ class OUStore extends EventEmitter {
       case "FETCHING_UNITS": {
         this.emit("listFetching");
         console.log("Loading units...");
+        break;
       }
 
       case "RECEIVED_UNITS": {
         this.state.organizationUnits = action.orgUnits;
         this.emit("listReceived");
         console.log("Loading complete");
+        break;
       }
     }
   }

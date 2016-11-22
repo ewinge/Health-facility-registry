@@ -46,7 +46,6 @@ export function handleLoadAllUnits() {
   dispatcher.dispatch({type: "FETCHING_UNITS"})
 
   var orgUnits = loadAllUnits().then((organisationUnits) => {
-
     dispatcher.dispatch({
       type: "RECEIVED_UNITS",
       orgUnits: organisationUnits

@@ -26,15 +26,15 @@ var Expandable = React.createClass({
 
 				//Not all facilities have coordinates
 				const locateDisabled = !this.props.orgUnit.hasOwnProperty('coordinates');
-				var coords = locateDisabled ? coords = "unavailable" : coords = this.props.orgUnit.coordinates.replace(/[\[\]']+/g, '');
+				var coords = locateDisabled ? coords = "unavailable" : coords = this.props.orgUnit.coordinates;
 
 				return (
 					<li key={this.props.id} onClick={this.handleClick}>
 							<ol>
 								<li><b>{this.props.orgUnit.displayName}</b></li>
-								<li><b>Code</b>: {this.props.orgUnit.code}</li>
+								<li><b>Code</b>:   {this.props.orgUnit.code}</li>
 								<li><b>Opened:</b> {this.props.orgUnit.openingDate.substring(0, this.props.orgUnit.openingDate.indexOf('T'))}</li>
-								<li><b>Level</b>: {OUStore.getLevelString(this.props.orgUnit.level)}</li>
+								<li><b>Level</b>:  {OUStore.getLevelString(this.props.orgUnit.level)}</li>
 								<li><b>Coordinates</b>: {coords}</li>
 								<li><LocateButton disabled={locateDisabled} coords={coords}/></li>
 							</ol>
