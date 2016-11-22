@@ -7,6 +7,7 @@ export default class Form extends Component {
 
         //For clearing the form
         this.emptyState = {
+            id: "",
             name: '',
             shortName: '',
             openingDate: '',
@@ -29,10 +30,15 @@ export default class Form extends Component {
     }
     
     componentWillReceiveProps(nextProps) {
+        //clear previous state
+//        this.replaceState(Object.assign({}, this.emptyState));
+//        this.setState({all:undefined,old:undefined,keys:undefined});
+        this.state = Object.assign({}, this.emptyState);
+        this.forceUpdate();
+        
         //when editing a new child
         if (nextProps.parent) {
             this.setState({parent: nextProps.parent});
-            this.setState(this.emptyState);
         }
         
         //When editing  an existing unit, load data

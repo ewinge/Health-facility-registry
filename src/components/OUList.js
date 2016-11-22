@@ -80,6 +80,7 @@ class Node extends Component {
         this.editUnit = this.editUnit.bind(this);
         this.update = this.update.bind(this);
         this.newChild = this.newChild.bind(this);
+        this.saveChild = this.saveChild.bind(this);
     }
 
     saveUnit(data) {
@@ -89,7 +90,16 @@ class Node extends Component {
         saveOrganisationUnit(data)
             .then(this.update);
     }
-    
+
+    saveChild(data) {
+        saveOrganisationUnit(data)
+            .then(() => {
+                //Update and display children, hack-ish
+                this.setState({expanded: false});
+                this.setState({expanded: true});
+//                this.forceUpdate();
+            });
+    }
     update() {
         loadUnit(this.props.item.id)
             .then(unit => this.setState({item: unit}));
@@ -107,7 +117,7 @@ class Node extends Component {
     }
     
     newChild() {
-        this.props.edit("", data => saveOrganisationUnit(data).then(this.setState({expanded: true})), this.state.item);
+        this.props.edit("", this.saveChild, this.state.item);
     }
 
     render() {
