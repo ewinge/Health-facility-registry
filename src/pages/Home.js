@@ -15,9 +15,6 @@ var Home = React.createClass({
 		//Default map zoom
 		const zoom = 8;
 
-		//Loads organization units into the OUStore
-		handleLoadAllUnits();
-
 		return (
 			<div className="home">
 				<Search />

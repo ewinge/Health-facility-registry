@@ -115,6 +115,12 @@ var Map = React.createClass({
     OUStore.on("locate", this.pan)
   },
 
+  //Unlisten upon dismounting
+  componentWillUnmount: function() {
+    OUStore.removeListener("listChange", this.getMarkers);
+    OUStore.removeListener("locate", this.pan)
+  },
+
   onClick: function(e) {
     console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
   },

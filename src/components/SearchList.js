@@ -7,7 +7,7 @@ var SearchList = React.createClass({
   getInitialState: function () {
     return {
       items: OUStore.getQueryResult(),
-      loading: true
+      loading: false
     };
   },
 
@@ -35,6 +35,13 @@ var SearchList = React.createClass({
     OUStore.on("listChange", this.getFilteredResult);
     OUStore.on("listFetching", this.setLoading);
     OUStore.on("listReceived", this.doneLoading);
+  },
+
+  //Unlisten upon dismounting
+  componentWillUnmount: function() {
+    OUStore.removeListener("listChange", this.getFilteredResult);
+    OUStore.removeListener("listFetching", this.setLoading);
+    OUStore.removeListener("listReceived", this.doneLoading);
   },
 
   createList: function() {

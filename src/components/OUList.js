@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
 import { loadUnit } from '../api';
-
 /**
  * ES2015 class component
  * https://facebook.github.io/react/docs/reusable-components.html#es6-classes-and-react.createclass
@@ -15,7 +14,7 @@ export default class OUList extends Component {
             isLoading: true,
             items: [],
         };
-        
+
         this.deleteUnit = this.deleteUnit.bind(this);
     }
 
@@ -29,7 +28,7 @@ export default class OUList extends Component {
             // reload the list
             .then(() => this.loadOrgUnits());
     }
-    
+
     loadOrgUnits() {
         // Loads the organisation units from the api and sets the loading state to false and puts the items onto the component state.
         loadOrganisationUnits(this.props.parent)
@@ -45,11 +44,11 @@ export default class OUList extends Component {
         const listItems = this.state.items
             .map(item => {
                 return (
-                    <Node 
+                    <Node
                         item={item}
                         key={item.id}
-                        edit={this.props.edit} 
-                        deleteUnit={this.deleteUnit} 
+                        edit={this.props.edit}
+                        deleteUnit={this.deleteUnit}
                     />
                 );
             });
@@ -104,18 +103,18 @@ class Node extends Component {
         loadUnit(this.props.item.id)
             .then(unit => this.setState({item: unit}));
     }
-    
+
     handleClick(e) {
         // invert expanded
         this.setState(prevState => ({
             expanded: !prevState.expanded
         }));
     }
-    
+
     editUnit(id) {
         this.props.edit(id, this.saveUnit);
     }
-    
+
     newChild() {
         this.props.edit("", this.saveChild, this.state.item);
     }

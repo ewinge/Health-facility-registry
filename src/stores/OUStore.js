@@ -1,6 +1,7 @@
 import { EventEmitter } from "events";
 import dispatcher from "../dispatcher"
 import { loadUnit, loadAllUnits } from "../api"
+import { handleLoadAllUnits } from "../actions/Actions";
 
 class OUStore extends EventEmitter {
   constructor() {
@@ -13,6 +14,9 @@ class OUStore extends EventEmitter {
       filter: 'none',
       levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
+
+    //Loads organization units into the OUStore
+    handleLoadAllUnits();
   }
 
   //Search from all units
@@ -135,7 +139,6 @@ class OUStore extends EventEmitter {
       }
 
       case "LOCATE": {
-        console.log(typeof action.coords);
         const coords = JSON.parse(action.coords);
         this.emit("locate", {lat: coords[1], lng: coords[0]});
         break;
