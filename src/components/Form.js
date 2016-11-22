@@ -21,7 +21,6 @@ export default class Form extends Component {
         this.setName = this.setName.bind(this);
         this.setShortName = this.setShortName.bind(this);
         this.setOpeningDate = this.setOpeningDate.bind(this);
-        this.setLevel = this.setLevel.bind(this);
         this.setCoordinates = this.setCoordinates.bind(this);
     }
     
@@ -66,10 +65,6 @@ export default class Form extends Component {
         this.setState({ openingDate: event.target.value });
     }
     
-    setLevel(event) {
-        this.setState({level: event.target.value});
-    }
-    
     setCoordinates(event) {
         this.setState({ coordinates: event.target.value });
     }
@@ -103,13 +98,13 @@ export default class Form extends Component {
                     <div>
                     <label>
                         <span>Level</span>
-                        <input type="date" value={this.state.level} onChange={this.setLevel} />
+                        <input disabled={true} type="number" value={this.state.level} />
                     </label>
                     </div>
                     <div>
                     <label>
                         <span>Coordinates</span>
-                        <input type="date" value={this.state.coordinates} onChange={this.setCoordinates} />
+                        <input type="text" value={this.state.coordinates} onChange={this.setCoordinates} />
                     </label>
                     </div>
                     <div>
