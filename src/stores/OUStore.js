@@ -14,9 +14,6 @@ class OUStore extends EventEmitter {
       filter: 'none',
       levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
-
-    //Loads organization units into the OUStore
-    handleLoadAllUnits();
   }
 
   //Search from all units
@@ -164,6 +161,11 @@ class OUStore extends EventEmitter {
         this.state.organizationUnits = action.orgUnits;
         this.emit("listReceived");
         console.log("Loading complete");
+        break;
+      }
+
+      case "LOAD_FAILED": {
+        this.emit("fetchFailed");
         break;
       }
     }

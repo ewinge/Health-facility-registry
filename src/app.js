@@ -9,6 +9,10 @@ import Browse from './pages/Browse';
 import Home from './pages/Home';
 import Edit from './pages/Edit';
 import Help from './pages/Help';
+import { handleLoadAllUnits } from "./actions/Actions";
+
+//Loads organization units from the server to the OUStore
+handleLoadAllUnits();
 
 //Create routes between the pages
 render(

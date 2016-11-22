@@ -1,7 +1,6 @@
 import React from "react";
 import Search from "../components/Search";
 import Map from "../components/Map";
-import { handleLoadAllUnits } from "../actions/Actions";
 
 var Home = React.createClass({
 	render: function () {

@@ -43,12 +43,19 @@ export function handleNewUnit(input) {
 
 //Called to load all organization units
 export function handleLoadAllUnits() {
-  dispatcher.dispatch({type: "FETCHING_UNITS"})
+  dispatcher.dispatch({
+    type: "FETCHING_UNITS"
+  })
 
   var orgUnits = loadAllUnits().then((organisationUnits) => {
     dispatcher.dispatch({
       type: "RECEIVED_UNITS",
       orgUnits: organisationUnits
     })
-  });
+
+  }).catch((e) => {
+    dispatcher.dispatch({
+      type: "LOAD_FAILED"
+    })
+  })
 }

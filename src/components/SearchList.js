@@ -7,7 +7,8 @@ var SearchList = React.createClass({
   getInitialState: function () {
     return {
       items: OUStore.getQueryResult(),
-      loading: false
+      loading: false,
+      error: false
     };
   },
 
@@ -30,11 +31,18 @@ var SearchList = React.createClass({
     });
   },
 
+  loadError: function() {
+    this.setState({
+      error: true
+    });
+  },
+
   //Listen to list changes in OUStore
   componentWillMount: function() {
     OUStore.on("listChange", this.getFilteredResult);
     OUStore.on("listFetching", this.setLoading);
     OUStore.on("listReceived", this.doneLoading);
+    OUStore.on("fetchFailed", this.loadError);
   },
 
   //Unlisten upon dismounting
@@ -42,13 +50,19 @@ var SearchList = React.createClass({
     OUStore.removeListener("listChange", this.getFilteredResult);
     OUStore.removeListener("listFetching", this.setLoading);
     OUStore.removeListener("listReceived", this.doneLoading);
+    OUStore.removeListener("fetchFailed", this.loadError);
   },
 
   createList: function() {
 
+    //Don't attempt to create list if fetching data failed
+    if (this.state.error) {
+      return <p><b><font color="red">Failed to fetch data from server.</font></b></p>
+    }
+
     //Don't attempt to create list while the units are still loading
     if (this.state.loading) {
-      return <p>Loading units...</p>
+      return <p><b>Loading units...</b></p>
     }
 
     var listItems = this.state.items.map(function(item, i) {
@@ -58,7 +72,7 @@ var SearchList = React.createClass({
     });
 
     if (listItems.length == 0) {
-      return <p>No units found.</p>;
+      return <p></p>;
     } else {
       return (<ul>{listItems}</ul>);
     }
