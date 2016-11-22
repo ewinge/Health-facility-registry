@@ -10,7 +10,7 @@ var NavigationBar = React.createClass({
 		return (
 			<div className="nav">
 				<ul>
-					<li><Link to="/" className="nav">Home</Link></li>
+					<li><Link to="/" className="nav">Search</Link></li>
 					<li><Link to="/browse" className="nav">Browse</Link></li>
 					<li><Link to="/edit" className="nav">Register new</Link></li>
 					<li><Link to="/help" className="nav">Help</Link></li>
