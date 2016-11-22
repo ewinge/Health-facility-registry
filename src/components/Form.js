@@ -26,10 +26,16 @@ export default class Form extends Component {
     }
     
     componentWillReceiveProps(nextProps) {
+        //when editing a new child
+        if (nextProps.parent) {
+            this.setState({parent: nextProps.parent});
+        }
+        
+        //When editing  an existing unit, load data
         if (nextProps.edit && nextProps.edit != "") {
             loadUnit(nextProps.edit)
                 .then(unit => this.setState(unit));
-          }
+        }
     }
 
     onSubmitClick(event) {

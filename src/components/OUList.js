@@ -79,6 +79,7 @@ class Node extends Component {
         this.saveUnit = this.saveUnit.bind(this);
         this.editUnit = this.editUnit.bind(this);
         this.update = this.update.bind(this);
+        this.newChild = this.newChild.bind(this);
     }
 
     saveUnit(data) {
@@ -104,6 +105,10 @@ class Node extends Component {
     editUnit(id) {
         this.props.edit(id, this.saveUnit);
     }
+    
+    newChild() {
+        this.props.edit("", data => saveOrganisationUnit(data).then(this.setState({expanded: true})), this.state.item);
+    }
 
     render() {
         return (
@@ -114,6 +119,8 @@ class Node extends Component {
                 {this.state.item.name ? this.state.item.name : this.state.item.displayName}
                 [
                 <Link onClick={() => this.editUnit(this.state.item.id)}>edit</Link>
+                |
+                <Link onClick={() => this.newChild()}>new child</Link>
                 |
                 <Link onClick={() => this.props.deleteUnit(this.state.item)}>delete</Link>
                 ]

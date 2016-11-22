@@ -12,17 +12,26 @@ export default class Browse extends Component {
             editing: false,
             onSubmit: false,
             root: "",
+            editParent: false,
         };
 
         // Bind the functions that are passed around to the component
         this.editUnit = this.editUnit.bind(this);
     }
     
-    editUnit(id,onSubmit) {
-        //create new form
+    /**
+     * Activate the form to edit a unit
+     * 
+     * @param id of the unit to edit, "" if new unit
+     * @Param onSubmit callback for saving data
+     * @param parent of new unit
+     */
+    editUnit(id, onSubmit, parent) {
+        console.log("edit:", id, onSubmit, parent);
         this.setState({
             editing: id,
             onSubmit: onSubmit,
+            editParent: parent,
         });
     }
 
@@ -30,7 +39,7 @@ export default class Browse extends Component {
         return (
             <div className="app">
             <OUList parent={this.state.root} edit={this.editUnit} />
-            {this.state.editing ? <Form edit={this.state.editing} onSubmit={this.state.onSubmit} /> : ""}
+            {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} onSubmit={this.state.onSubmit} parent={this.state.editParent} /> : ""}
             </div>
         );
     }
