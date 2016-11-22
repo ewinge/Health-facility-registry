@@ -6,7 +6,8 @@ var SearchList = React.createClass({
 
   getInitialState: function () {
     return {
-      items: OUStore.getQueryResult()
+      items: OUStore.getQueryResult(),
+      loading: true
     };
   },
 
@@ -17,12 +18,32 @@ var SearchList = React.createClass({
     });
   },
 
+  setLoading: function() {
+    this.setState({
+      loading: true
+    });
+  },
+
+  doneLoading: function() {
+    this.setState({
+      loading: false
+    });
+  },
+
   //Listen to list changes in OUStore
   componentWillMount: function() {
     OUStore.on("listChange", this.getFilteredResult);
+    OUStore.on("listFetching", this.setLoading);
+    OUStore.on("listReceived", this.doneLoading);
   },
 
   createList: function() {
+
+    //Don't attempt to create list while the units are still loading
+    if (this.state.loading) {
+      return <p>Loading units...</p>
+    }
+
     var listItems = this.state.items.map(function(item, i) {
 
       //console.log(i, item.displayName); //For testing purposes
@@ -30,7 +51,7 @@ var SearchList = React.createClass({
     });
 
     if (listItems.length == 0) {
-      return <p>No such unit found.</p>;
+      return <p>No units found.</p>;
     } else {
       return (<ul>{listItems}</ul>);
     }

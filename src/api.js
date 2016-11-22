@@ -41,7 +41,7 @@ export function saveOrganisationUnit(organisationUnit) {
         method = "POST";
         URL = `${serverUrl}/organisationUnits`;
     }
-    
+
     console.log("saving: ", method, organisationUnit);
 
     return fetch(URL, Object.assign({}, fetchOptions, { method: method, body: JSON.stringify(organisationUnit) }))

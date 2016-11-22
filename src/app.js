@@ -11,14 +11,14 @@ import Edit from './pages/Edit';
 import Help from './pages/Help';
 
 //Create routes between the pages
-render( 
+render(
 		<Router history={hashHistory}>
-			<Route path="/" component={Layout}>	
+			<Route path="/" component={Layout}>
 				<IndexRoute component={Home}></IndexRoute>
 				<Route path="edit" component={Edit}></Route>
 				<Route path="browse" component={Browse}></Route>
-				<Route path="help" component={Help}></Route>	
+				<Route path="help" component={Help}></Route>
 			</Route>
-		</Router>, 	
+		</Router>,
 
 document.querySelector('.app'));

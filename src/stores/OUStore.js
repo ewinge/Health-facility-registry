@@ -13,17 +13,6 @@ class OUStore extends EventEmitter {
       filter: 'none',
       levelString: ['none', 'country', 'province', 'district', 'facility'],
     };
-
-    this.loadUnits();
-  }
-
-  //Loads all organization units from the start
-  loadUnits() {
-
-    //From the api
-    loadAllUnits().then((organisationUnits) => {
-      this.state.organizationUnits = organisationUnits;
-    });
   }
 
   //Search from all units
@@ -108,19 +97,24 @@ class OUStore extends EventEmitter {
     return "unknown (" + level + ")";
   }
 
-  //Return the coordinates of the facilities in filteredResult
+
+  //Data for map markers
   getCoordinates() {
-    var coords = [];
+    var hasCoords = [];
 
     var i = this.state.filteredResult.length;
     while (i--) {
 
-      //Only facilities have coordinates
+      //Only facilities that have coordinates are taken into account
       if (this.state.filteredResult[i].hasOwnProperty("coordinates") && this.state.filteredResult[i].level == 4) {
-        coords.push(this.stringToLatLng(this.state.filteredResult[i].coordinates));
+        hasCoords.push({
+          coordinates: this.stringToLatLng(this.state.filteredResult[i].coordinates),
+          orgUnit: this.state.filteredResult[i],
+          showInfo: false
+        })
       }
     }
-    return coords;
+    return hasCoords;
   }
 
   //Converts string coordinates to LatLng object recgnized by google maps.
@@ -136,7 +130,6 @@ class OUStore extends EventEmitter {
   //Updates a unit.
   updateUnit(orgUnit) {
 
-    console.log("KOM HIT!");
     //End if given org unit has no id property
     if (!orgUnit.hasOwnProperty("id")) {
       console.log("WARNING: Not update unit with no id", orgUnit);
@@ -157,7 +150,7 @@ class OUStore extends EventEmitter {
 
   //Handles actions by the components
   handleActions(action) {
-    console.log("Action received", action);
+    console.log("Action received:", action.type);
 
     switch(action.type) {
       case "QUERY": {
@@ -176,11 +169,6 @@ class OUStore extends EventEmitter {
         break;
       }
 
-      case "RELOAD": {
-        loadUnits();
-        break;
-      }
-
       case "NEW_UNIT": {
         this.state.organizationUnits.push(action.newUnit);
         break;
@@ -189,6 +177,17 @@ class OUStore extends EventEmitter {
       case "UPDATE_UNIT": {
         this.updateUnit(action.updatedUnit);
         break;
+      }
+
+      case "FETCHING_UNITS": {
+        this.emit("listFetching");
+        console.log("Loading units...");
+      }
+
+      case "RECEIVED_UNITS": {
+        this.state.organizationUnits = action.orgUnits;
+        this.emit("listReceived");
+        console.log("Loading complete");
       }
     }
   }
