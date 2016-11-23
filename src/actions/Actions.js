@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher";
-import { loadAllUnits } from "../api"
+import { loadAllUnits, deleteOrganisationUnit } from "../api"
 
 //Called when a new search query in entered
 export function handleQuery(input) {
@@ -58,4 +58,14 @@ export function handleLoadAllUnits() {
       type: "LOAD_FAILED"
     })
   })
+}
+
+//Deletes a unit with unitID from the OUStore
+export function handleDelete(unit) {
+  deleteOrganisationUnit(unit.id).then(() => {
+    dispatcher.dispatch({
+      type: "DELETE_UNIT",
+      id: unit.id
+    })
+  }) 
 }

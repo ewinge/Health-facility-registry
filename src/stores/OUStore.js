@@ -103,7 +103,7 @@ class OUStore extends EventEmitter {
 
     //End if given org unit has no id property
     if (!orgUnit.hasOwnProperty("id")) {
-      console.log("WARNING: Not update unit with no id", orgUnit);
+      console.log("WARNING: Can't update unit with no id", orgUnit);
       return;
     }
 
@@ -117,6 +117,17 @@ class OUStore extends EventEmitter {
 
     //If no org units with a the same id as the one given, error
     console.log("WARNING: No org unit found with this id:", orgUnit.id);
+  }
+
+  removeUnit(id) {
+    var i = this.state.organizationUnits.length;
+    while (i--) {
+      if (this.state.organizationUnits[i].id == id) {
+        console.log("Unit deleted:", this.state.organizationUnits[i].displayName);
+        this.state.organizationUnits.splice(i, 1);
+        return;
+      }
+    }
   }
 
   //Handles actions by the components
@@ -167,6 +178,11 @@ class OUStore extends EventEmitter {
       case "LOAD_FAILED": {
         this.emit("fetchFailed");
         break;
+      }
+
+      case "DELETE_UNIT": {
+        this.removeUnit(action.id);
+        this.emit("unitDeleted");
       }
     }
   }

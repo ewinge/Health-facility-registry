@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
+import { saveOrganisationUnit } from '../api';
 import { loadUnit } from '../api';
+import { handleDelete } from "../actions/Actions";
+import OUStore from "../stores/OUStore"
+
 /**
  * ES2015 class component
  * https://facebook.github.io/react/docs/reusable-components.html#es6-classes-and-react.createclass
@@ -16,20 +19,44 @@ export default class OUList extends Component {
         };
 
         this.deleteUnit = this.deleteUnit.bind(this);
+        this.loadOrgUnits = this.loadOrgUnits.bind(this);
     }
 
     componentDidMount() {
         this.loadOrgUnits();
     }
 
+    //Listen to list changes in OUStore
+    componentWillMount() {
+      OUStore.on("unitDeleted", this.loadOrgUnits);
+      OUStore.on("listReceived", this.loadOrgUnits); //Incase units are still loading
+    }
+
+    //Unlisten upon dismounting
+    componentWillUnmount() {
+      OUStore.removeListener("unitDeleted", this.loadOrgUnits);
+      OUStore.removeListener("listReceived", this.loadOrgUnits);
+    }
+
     deleteUnit(item) {
+      handleDelete(item);
+      /*
         deleteOrganisationUnit(item.id)
             .catch(() => alert(`Could not delete organisation unit ${item.displayName}`))
             // reload the list
-            .then(() => this.loadOrgUnits());
+            .then(() => {
+              handleDelete(item.id);
+              this.loadOrgUnits();
+            });
+            */
     }
 
     loadOrgUnits() {
+      this.setState({
+          isLoading: false,
+          items: OUStore.getAll()
+      });
+      /*
         // Loads the organisation units from the api and sets the loading state to false and puts the items onto the component state.
         loadOrganisationUnits(this.props.parent)
             .then((organisationUnits) => {
@@ -38,6 +65,7 @@ export default class OUList extends Component {
                     items: organisationUnits,
                 });
             });
+            */
     }
 
     render() {

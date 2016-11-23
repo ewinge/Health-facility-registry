@@ -1,7 +1,7 @@
 import React from "react";
 
 import OUStore from "../stores/OUStore"
-import * as SearchActions from "../actions/Actions";
+import { handleQuery } from "../actions/Actions";
 
 var SearchBar = React.createClass({
 
@@ -15,12 +15,12 @@ var SearchBar = React.createClass({
 		this.setState({value: e.target.value});
 
 		if (e.target.value.length > 1) {
-				SearchActions.handleQuery(e.target.value);
+				handleQuery(e.target.value);
 		}
 	},
 
 	handleSubmit: function() {
-		SearchActions.handleQuery(this.state.value);
+		handleQuery(this.state.value);
 	},
 
 	render() {

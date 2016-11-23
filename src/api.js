@@ -6,7 +6,7 @@
  * You obviously should not do this for your production apps.
  */
 //const serverUrl = 'http://localhost:8082/api';
-const serverUrl = 'https://play.dhis2.org/test/api';
+const serverUrl = 'https://play.dhis2.org/demo/api';
 const basicAuth = `Basic ${btoa('admin:district')}`;
 
 /**
