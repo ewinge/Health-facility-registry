@@ -10,10 +10,15 @@ var OUPolygons = React.createClass({
     //Only facilities that have coordinates are taken into account
     if (!(this.props.orgUnit.hasOwnProperty("coordinates") && this.props.orgUnit.featureType == "POLYGON"))  { return null; }
 
-    //Polygons are formated as multipolygons (4 outer brackets)
-    const points = JSON.parse(this.props.orgUnit.coordinates)[0][0].map(coord => (
-      {lat: coord[1], lng: coord[0]}
-    ))
+    var points = []
+    try {
+      //Polygons are formated as multipolygons (4 outer brackets)
+      points = JSON.parse(this.props.orgUnit.coordinates)[0][0].map(coord => (
+        {lat: coord[1], lng: coord[0]}
+      ))
+    } catch (e) {
+      return false;
+    }
 
     return (
       <Polygon

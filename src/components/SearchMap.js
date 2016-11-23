@@ -9,13 +9,10 @@ var SearchMap = React.createClass({
   getInitialState: function() {
 
     return ({
-      defaultCenter: this.props.center,
-      center: this.props.center,
-      zoom: this.props.zoom,
-      orgUnits: [],
+      markers: [],
+      polygons: [],
       markerClicked: [],
-      showPolygons: false,
-      showMarkers: false
+      showPolygons: false
     });
   },
 
@@ -23,7 +20,20 @@ var SearchMap = React.createClass({
   //if a marker infoWindow will be rendered or not
   getUnits: function() {
     const units = OUStore.getFilteredResult();
-    var bool = new Array(units.length);
+    var newMarkers = [];
+    var newPolygons = [];
+
+    units.map((unit) => {
+      if (unit.hasOwnProperty("featureType")) {
+        switch(unit.featureType) {
+          case "POINT": { newMarkers.push(unit); break; }
+          case "POLYGON": { newPolygons.push(unit); break; }
+          case "MULTI_POLYGON": {  /*TODO; */ break; }
+        }
+      }
+    });
+
+    var bool = new Array(newMarkers.length);
     var i = units.length;
 
     while (i--) {
@@ -31,8 +41,10 @@ var SearchMap = React.createClass({
     }
 
     this.setState({
-      orgUnits: units,
-      markerClicked: bool
+      markers: newMarkers,
+      polygons: newPolygons,
+      markerClicked: bool,
+      showPolygons: !(newMarkers.length > 0)
     });
   },
 
@@ -70,14 +82,13 @@ var SearchMap = React.createClass({
     return (
       <Map ref={(map) => { this._child = map; }} onClick={this.onClick}>
 
-        {this.state.orgUnits.map((unit, i) => (
+        {this.state.markers.map((unit, i) => (
           <OUMarkers key={i}
                      orgUnit={unit}
                      showInfo={this.state.markerClicked[i]}
                      onClick={() => this.onMarkerClick(i)}/>))}
 
-
-        {this.state.orgUnits.map((unit, i) => (<OUPolygons key={i} orgUnit={unit} />))}
+        {this.state.showPolygons && this.state.polygons.map((unit, i) => (<OUPolygons key={i} orgUnit={unit} />))}
 
       </Map>
     )

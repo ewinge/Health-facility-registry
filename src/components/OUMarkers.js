@@ -9,7 +9,13 @@ var OUMarkers = React.createClass({
     //Only facilities that have coordinates are taken into account
     if (!(this.props.orgUnit.hasOwnProperty("coordinates") && this.props.orgUnit.featureType == "POINT"))  { return null; }
 
-    const coords = JSON.parse(this.props.orgUnit.coordinates);
+    var coords = []
+    try {
+      coords = JSON.parse(this.props.orgUnit.coordinates);
+    } catch (e) {
+      return false;
+    }
+
     const marker = {
       coordinates: {
         lat: coords[1],

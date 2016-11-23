@@ -5,8 +5,8 @@
  * `basicAuth` contains the username and password to send with the request as the basic authentication token. This is only needed when you develop locally and need CORS support (https://developer.mozilla.org/en-US/docs/Web/HTTP).
  * You obviously should not do this for your production apps.
  */
-//const serverUrl = 'http://localhost:8082/api';
-const serverUrl = 'https://play.dhis2.org/demo/api';
+const serverUrl = 'http://localhost:8082/api';
+//const serverUrl = 'https://play.dhis2.org/demo/api';
 const basicAuth = `Basic ${btoa('admin:district')}`;
 
 /**

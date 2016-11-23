@@ -2,11 +2,10 @@ import React from "react";
 import { GoogleMapLoader, GoogleMap } from "react-google-maps";
 
 var Map = React.createClass({
-  getInitialState: function() {
 
+  getInitialState: function() {
     return ({
       center: this.props.defaultCenter,
-      zoom: this.props.defaultZoom,
       panning: true
     });
   },
@@ -15,7 +14,6 @@ var Map = React.createClass({
   pan: function(coords) {
     this.setState({
       center: coords,
-      zoom: 12,
       panning: true
     });
   },
