@@ -13,6 +13,7 @@ class OUStore extends EventEmitter {
       filteredResult: [],
       filter: 'none',
       levelString: ['none', 'country', 'province', 'district', 'facility'],
+      isLoading: true
     };
   }
 
@@ -77,6 +78,10 @@ class OUStore extends EventEmitter {
   //Returns the levels' string version
   getLevelString() {
     return this.state.levelString;
+  }
+
+  isLoading() {
+    return this.state.isLoading;
   }
 
   //Gets a unit using an id
@@ -163,13 +168,13 @@ class OUStore extends EventEmitter {
       }
 
       case "FETCHING_UNITS": {
-        this.emit("listFetching");
         console.log("Loading units...");
         break;
       }
 
       case "RECEIVED_UNITS": {
         this.state.organizationUnits = action.orgUnits;
+        this.state.isLoading = false;
         this.emit("listReceived");
         console.log("Loading complete");
         break;

@@ -7,7 +7,7 @@ var SearchList = React.createClass({
   getInitialState: function () {
     return {
       items: OUStore.getQueryResult(),
-      loading: false,
+      loading: OUStore.isLoading(),
       error: false
     };
   },
@@ -40,7 +40,6 @@ var SearchList = React.createClass({
   //Listen to list changes in OUStore
   componentWillMount: function() {
     OUStore.on("listChange", this.getFilteredResult);
-    OUStore.on("listFetching", this.setLoading);
     OUStore.on("listReceived", this.doneLoading);
     OUStore.on("fetchFailed", this.loadError);
   },
@@ -48,7 +47,6 @@ var SearchList = React.createClass({
   //Unlisten upon dismounting
   componentWillUnmount: function() {
     OUStore.removeListener("listChange", this.getFilteredResult);
-    OUStore.removeListener("listFetching", this.setLoading);
     OUStore.removeListener("listReceived", this.doneLoading);
     OUStore.removeListener("fetchFailed", this.loadError);
   },
