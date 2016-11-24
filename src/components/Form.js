@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { loadUnit } from '../api';
+import FormMap from "./FormMap";
 
 export default class Form extends Component {
     constructor(...args) {
@@ -11,8 +12,8 @@ export default class Form extends Component {
             name: '',
             shortName: '',
             openingDate: '',
-            parent: '',
-            coordinates: [0.0,0.0],
+            level: '',
+            coordinates: "[0.0,0.0]",
         };
         
         this.state = Object.assign({}, this.emptyState);
@@ -97,8 +98,8 @@ export default class Form extends Component {
                     </div>
                     <div>
                     <label>
-                        <span>Parent</span>
-                        <input disabled={true} type="number" value={this.state.parent} />
+                        <span>Level</span>
+                        <input disabled={true} type="number" value={this.state.level} />
                     </label>
                     </div>
                     <div>
