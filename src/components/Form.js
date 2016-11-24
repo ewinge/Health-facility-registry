@@ -11,7 +11,7 @@ export default class Form extends Component {
             name: '',
             shortName: '',
             openingDate: '',
-            level: '',
+            parent: '',
             coordinates: "[0.0,0.0]",
         };
         
@@ -97,8 +97,8 @@ export default class Form extends Component {
                     </div>
                     <div>
                     <label>
-                        <span>Level</span>
-                        <input disabled={true} type="number" value={this.state.level} />
+                        <span>Parent</span>
+                        <input disabled={true} type="number" value={this.state.parent} />
                     </label>
                     </div>
                     <div>
