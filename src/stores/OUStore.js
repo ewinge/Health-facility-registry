@@ -65,10 +65,20 @@ class OUStore extends EventEmitter {
     return this.state.organizationUnits;
   }
 
+  /**
+   * Get the immediate children of the given parent
+   */
   getChildrenOf(parentId) {
       //The root node has no parent
       const predicate = (parentId == "" ? unit => unit.parent == undefined : unit => unit.parent && unit.parent.id == parentId);
       return this.state.organizationUnits.filter(predicate);
+  }
+
+  /**
+   * Check if the given node has children
+   */
+  hasChildren(id) {
+      return this.getChildrenOf(id).length > 0;
   }
 
   //Returns the search query results

@@ -53,6 +53,7 @@ export function saveOrganisationUnit(organisationUnit) {
 }
 
 export function deleteOrganisationUnit(id) {
+    console.log("deleting:", id);
     // Send DELETE request to the server to delete the organisation unit
     return fetch(
         `${serverUrl}/organisationUnits/${id}`,

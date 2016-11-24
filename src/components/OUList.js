@@ -90,7 +90,7 @@ class Node extends Component {
             item: this.props.item,
         };
 
-        this.handleClick = this.handleClick.bind(this);
+        this.expand = this.expand.bind(this);
         this.saveUnit = this.saveUnit.bind(this);
         this.editUnit = this.editUnit.bind(this);
         this.update = this.update.bind(this);
@@ -115,12 +115,13 @@ class Node extends Component {
 //                this.forceUpdate();
             });
     }
+
     update() {
         loadUnit(this.props.item.id)
             .then(unit => this.setState({item: unit}));
     }
 
-    handleClick(e) {
+    expand() {
         // invert expanded
         this.setState(prevState => ({
             expanded: !prevState.expanded
@@ -138,20 +139,29 @@ class Node extends Component {
     render() {
         return (
             <li key={this.state.item.id}>
-                <Link onClick={this.handleClick}>
-                    <Expander expanded={this.state.expanded} />
-                </Link>
+                <Expander expanded={this.state.expanded} onClick={this.expand} />
                 {this.state.item.name ? this.state.item.name : this.state.item.displayName}
                 [
                 <Link onClick={() => this.editUnit(this.state.item.id)}>edit</Link>
                 |
                 <Link onClick={() => this.newChild()}>new child</Link>
                 |
-                <Link onClick={() => this.props.deleteUnit(this.state.item)}>delete</Link>
+                <DeleteLink id={this.state.item.id} action={() => this.props.deleteUnit(this.state.item)} />
                 ]
                 {this.state.expanded ? <OUList parent={this.state.item.id} edit={this.props.edit} /> : ""}
             </li>
         );
+    }
+}
+
+/**
+ * Link to delete a unit, only displayed for leaf nodes
+ */
+function DeleteLink({id, action}) {
+    if (!OUStore.hasChildren(id)) {
+        return (<Link onClick={action}>delete</Link>);
+    } else {
+        return null;
     }
 }
 
@@ -168,6 +178,8 @@ function Link({onClick, children}) {
 
 function Expander({expanded,onClick}) {
     return (
-        <img src={expanded ? "images/open.gif" : "images/closed.gif"} onClick={onClick} />
+        <Link onClick={onClick}>
+            <img src={expanded ? "images/open.gif" : "images/closed.gif"} />
+        </Link>
     );
 }
