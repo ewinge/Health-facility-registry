@@ -1,19 +1,18 @@
 import { EventEmitter } from "events";
-import dispatcher from "../dispatcher"
-import { loadUnit, loadAllUnits } from "../api"
-import { handleLoadAllUnits } from "../actions/Actions";
+import dispatcher from "../dispatcher";
 
 class OUStore extends EventEmitter {
   constructor() {
     super()
 
     this.state = {
+      isLoading: true,
       organizationUnits: [],
+      query: "",
       queryResult: [],
       filteredResult: [],
       filter: 'none',
-      levelString: ['none', 'country', 'province', 'district', 'facility'],
-      isLoading: true
+      levelString: ['none', 'country', 'province', 'district', 'facility']
     };
   }
 
@@ -79,6 +78,21 @@ class OUStore extends EventEmitter {
    */
   hasChildren(id) {
       return this.getChildrenOf(id).length > 0;
+  }
+
+  //Returns the current search query
+  getQuery() {
+    return this.state.query;
+  }
+
+  //Returns the current filter
+  getFilter() {
+    return this.state.filter;
+  }
+
+  //Returns string version of levels
+  getLevels() {
+    return this.state.levelString;
   }
 
   //Returns the search query results
@@ -157,6 +171,7 @@ class OUStore extends EventEmitter {
 
     switch(action.type) {
       case "QUERY": {
+        this.state.query = action.query;
         this.search(action.query);
         break;
       }

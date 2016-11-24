@@ -6,7 +6,7 @@ var SearchList = React.createClass({
 
   getInitialState: function () {
     return {
-      items: OUStore.getQueryResult(),
+      items: OUStore.getFilteredResult(),
       loading: OUStore.isLoading(),
       error: false
     };

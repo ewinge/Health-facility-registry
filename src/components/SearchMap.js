@@ -7,7 +7,6 @@ import Map from "./Map";
 
 var SearchMap = React.createClass({
   getInitialState: function() {
-
     return ({
       markers: [],
       polygons: [],
@@ -20,6 +19,7 @@ var SearchMap = React.createClass({
   //if a marker infoWindow will be rendered or not
   getUnits: function() {
     const units = OUStore.getFilteredResult();
+
     var newMarkers = [];
     var newPolygons = [];
 
@@ -65,13 +65,17 @@ var SearchMap = React.createClass({
   //Listen to list changes in OUStore
   componentWillMount: function() {
     OUStore.on("listChange", this.getUnits);
-    OUStore.on("locate", this.pan)
+    OUStore.on("locate", this.pan);
+  },
+
+  componentDidMount: function() {
+    this.getUnits();
   },
 
   //Unlisten upon dismounting
   componentWillUnmount: function() {
     OUStore.removeListener("listChange", this.getUnits);
-    OUStore.removeListener("locate", this.pan)
+    OUStore.removeListener("locate", this.pan);
   },
 
   onClick: function(e) {
@@ -80,7 +84,7 @@ var SearchMap = React.createClass({
 
   render: function() {
     return (
-      <Map ref={(map) => { this._child = map; }} onClick={this.onClick}>
+      <Map ref={(map) => { this._child = map }} onClick={this.onClick}>
 
         {this.state.markers.map((unit, i) => (
           <OUMarkers key={i}

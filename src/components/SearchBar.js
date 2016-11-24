@@ -1,5 +1,4 @@
 import React from "react";
-
 import OUStore from "../stores/OUStore"
 import { handleQuery } from "../actions/Actions";
 
@@ -7,7 +6,7 @@ var SearchBar = React.createClass({
 
 	getInitialState: function() {
 		return {
-			value: ''
+			value: OUStore.getQuery()
 		};
 	},
 

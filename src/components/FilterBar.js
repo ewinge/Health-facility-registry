@@ -1,23 +1,25 @@
 import React from "react";
-import * as SearchActions from "../actions/Actions";
+import OUStore from "../stores/OUStore";
+import { handleFilter } from "../actions/Actions";
 
 var FilterBar = React.createClass({
 
 	getInitialState: function() {
 		return {
-			options: ['none', 'facility', 'district', 'province', 'country']
+			options: OUStore.getLevels(),
+			selected: OUStore.getFilter()
 		};
 	},
 
 	handleChange: function(e) {
-		SearchActions.handleFilter(e.target.value);
+		handleFilter(e.target.value);
 	},
 
 	render() {
 		return (
-			<select className="input" onChange={this.handleChange}>
+			<select value={this.state.selected} className="input" onChange={this.handleChange}>
 				{this.state.options.map(function(option){
-					 return <option key={option} value={option}>{option}</option>;
+						return <option key={option} value={option}>{option}</option>;
 				 })}
 			</select>
 		);
