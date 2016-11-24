@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
 import FormMap from "./FormMap";
 
@@ -50,8 +51,13 @@ export default class Form extends Component {
 
     onSubmitClick(event) {
         event.preventDefault();
-
-        this.props.onSubmit(this.state);
+        //update or new unit?
+        if (this.state.id && this.state.id != "") {
+            handleUpdate(this.state)
+        } else {
+            handleNewUnit(this.state);
+        }
+//        this.props.onSubmit(this.state);
     }
 
     setName(event) {

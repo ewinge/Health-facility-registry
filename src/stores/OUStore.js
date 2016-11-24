@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import dispatcher from "../dispatcher"
-import { loadUnit, loadAllUnits } from "../api"
+import { saveOrganisationUnit, loadUnit, loadAllUnits } from "../api"
 import { handleLoadAllUnits } from "../actions/Actions";
 
 class OUStore extends EventEmitter {
@@ -153,7 +153,7 @@ class OUStore extends EventEmitter {
 
   //Handles actions by the components
   handleActions(action) {
-    console.log("Action received:", action.type);
+    console.log("Action received:", action.type, action);
 
     switch(action.type) {
       case "QUERY": {
@@ -174,12 +174,17 @@ class OUStore extends EventEmitter {
       }
 
       case "NEW_UNIT": {
-        this.state.organizationUnits.push(action.newUnit);
+        saveOrganisationUnit(action.newUnit)
+            .then(() => loadUnit(action.newUnit.id)
+                            .then(unit => this.state.organizationUnits.push(unit))
+                            .then(() => this.emit("unitChanged")));
         break;
       }
 
       case "UPDATE_UNIT": {
+        saveOrganisationUnit(action.updatedUnit);
         this.updateUnit(action.updatedUnit);
+        this.emit("unitChanged");
         break;
       }
 

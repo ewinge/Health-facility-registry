@@ -85,6 +85,7 @@ export function searchOrganisationUnits(parent, input) {
 
 //Loads a single unit with the id
 export function loadUnit(id) {
+    console.log("loadUnit:", id);
     return fetch(`${serverUrl}/organisationUnits/${id}`, fetchOptions)
         .then(onlySuccessResponses)
         .then(response => response.json())
