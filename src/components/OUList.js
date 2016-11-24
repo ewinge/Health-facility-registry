@@ -14,7 +14,6 @@ export default class OUList extends Component {
 
         // Set some initial state variables that are used within the component
         this.state = {
-            isLoading: true,
             items: [],
         };
 
@@ -53,19 +52,8 @@ export default class OUList extends Component {
 
     loadOrgUnits() {
       this.setState({
-          isLoading: false,
-          items: OUStore.getAll()
+          items: OUStore.getChildrenOf(this.props.parent)
       });
-      /*
-        // Loads the organisation units from the api and sets the loading state to false and puts the items onto the component state.
-        loadOrganisationUnits(this.props.parent)
-            .then((organisationUnits) => {
-                this.setState({
-                    isLoading: false,
-                    items: organisationUnits,
-                });
-            });
-            */
     }
 
     render() {

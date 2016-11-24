@@ -12,7 +12,7 @@ export default class Form extends Component {
             shortName: '',
             openingDate: '',
             parent: '',
-            coordinates: "[0.0,0.0]",
+            coordinates: [0.0,0.0],
         };
         
         this.state = Object.assign({}, this.emptyState);
