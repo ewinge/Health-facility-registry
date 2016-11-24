@@ -19,12 +19,6 @@ var SearchList = React.createClass({
     });
   },
 
-  setLoading: function() {
-    this.setState({
-      loading: true
-    });
-  },
-
   doneLoading: function() {
     this.setState({
       loading: false

@@ -16,21 +16,11 @@ var OUMarkers = React.createClass({
       return false;
     }
 
-    const marker = {
-      coordinates: {
-        lat: coords[1],
-        lng: coords[0]
-      },
-
-      orgUnit: this.props.orgUnit,
-      showInfo: false
-    }
-
     return (
     <Marker
       {...this.props}
       key={this.props.orgUnit.id}
-      position={marker.coordinates}
+      position={{ lat: coords[1], lng: coords[0]}}
       onClick={this.props.onClick}
     >
 
@@ -38,9 +28,9 @@ var OUMarkers = React.createClass({
         <InfoWindow onCloseclick={this.props.onClick}>
           <div className="infoWindow">
             <ul>
-              <li><b>{marker.orgUnit.displayName}</b></li>
-              <li>code: {marker.orgUnit.code}</li>
-              <li>opened: {marker.orgUnit.openingDate.substring(0, marker.orgUnit.openingDate.indexOf('T'))}</li>
+              <li><b>{this.props.orgUnit.displayName}</b></li>
+              <li>code: {this.props.orgUnit.code}</li>
+              <li>opened: {this.props.orgUnit.openingDate.substring(0, this.props.orgUnit.openingDate.indexOf('T'))}</li>
             </ul>
           </div>
         </InfoWindow>

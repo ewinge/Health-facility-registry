@@ -1,7 +1,19 @@
 import React from "react";
-import { Polygon } from "react-google-maps";
+import { Polygon, InfoWindow } from "react-google-maps";
 
 var OUPolygons = React.createClass({
+
+  //Find the approximate center of polygon
+  findCenter: function(points) {
+    var bounds = new google.maps.LatLngBounds();
+
+    var len = points.length;
+    while (len--) {
+      bounds.extend(points[len]);
+    }
+
+    return bounds.getCenter();
+  },
 
   //Gets units with coordinates from the OUStore and sets up data for markers/polygons
   render: function() {
@@ -21,12 +33,31 @@ var OUPolygons = React.createClass({
     }
 
     return (
+      <div>
       <Polygon
         {...this.props}
         key={this.props.orgUnit.id}
         options={this.props.options}
+        onClick={this.props.onClick}
         path={points}
-      />
+      >
+
+      </Polygon>
+      {this.props.showInfo && (
+        <InfoWindow {...this.props}
+          onCloseclick={this.props.onClick}
+          defaultPosition={this.findCenter(points)}>
+
+          <div className="infoWindow">
+            <ul>
+              <li><b>{this.props.orgUnit.displayName}</b></li>
+              <li>code: {this.props.orgUnit.code}</li>
+              <li>opened: {this.props.orgUnit.openingDate.substring(0, this.props.orgUnit.openingDate.indexOf('T'))}</li>
+            </ul>
+          </div>
+        </InfoWindow>
+      )}
+      </div>
     )
   }
 })
