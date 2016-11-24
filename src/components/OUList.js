@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { saveOrganisationUnit } from '../api';
 import { loadUnit } from '../api';
 import { handleDelete } from "../actions/Actions";
-import OUStore from "../stores/OUStore"
+import OUStore from "../stores/OUStore";
+import { Link, Expander, DeleteLink } from "./widgets";
 
 /**
- * ES2015 class component
- * https://facebook.github.io/react/docs/reusable-components.html#es6-classes-and-react.createclass
+ * Expandable list/tree of organizational units
+ * Recursive list, where each level is a OUlist containing Node elements
+ * 
+ * @Prop parent the parent node of this level, "" if root
+ * @Prop edit function callback for editing units
  */
 export default class OUList extends Component {
     constructor(props, context) {
@@ -152,34 +156,4 @@ class Node extends Component {
             </li>
         );
     }
-}
-
-/**
- * Link to delete a unit, only displayed for leaf nodes
- */
-function DeleteLink({id, action}) {
-    if (!OUStore.hasChildren(id)) {
-        return (<Link onClick={action}>delete</Link>);
-    } else {
-        return null;
-    }
-}
-
-function Link({onClick, children}) {
-    return(
-        <a href="#" onClick={event => {
-            event.preventDefault();
-            onClick && onClick();
-        }}>
-            {children}
-        </a>
-    );
-}
-
-function Expander({expanded,onClick}) {
-    return (
-        <Link onClick={onClick}>
-            <img src={expanded ? "images/open.gif" : "images/closed.gif"} />
-        </Link>
-    );
 }
