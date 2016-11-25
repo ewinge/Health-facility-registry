@@ -76,18 +76,11 @@ class Node extends Component {
         // Set some initial state variables
         this.state = {
             expanded: false,
-            item: this.props.item,
         };
 
         this.expand = this.expand.bind(this);
         this.editUnit = this.editUnit.bind(this);
-        this.update = this.update.bind(this);
         this.newChild = this.newChild.bind(this);
-    }
-
-    update() {
-        loadUnit(this.props.item.id)
-            .then(unit => this.setState({item: unit}));
     }
 
     expand() {
@@ -102,22 +95,22 @@ class Node extends Component {
     }
 
     newChild() {
-        this.props.edit("", this.state.item.id);
+        this.props.edit("", this.props.item.id);
     }
 
     render() {
         return (
-            <li key={this.state.item.id}>
+            <li key={this.props.item.id}>
                 <Expander expanded={this.state.expanded} onClick={this.expand} />
-                {this.state.item.name ? this.state.item.name : this.state.item.displayName}
+                {this.props.item.name ? this.props.item.name : this.props.item.displayName}
                 [
-                <Link onClick={() => this.editUnit(this.state.item.id)}>edit</Link>
+                <Link onClick={() => this.editUnit(this.props.item.id)}>edit</Link>
                 |
                 <Link onClick={() => this.newChild()}>new child</Link>
                 |
-                <DeleteLink unit={this.state.item} />
+                <DeleteLink unit={this.props.item} />
                 ]
-                {this.state.expanded ? <OUList parent={this.state.item.id} edit={this.props.edit} /> : ""}
+                {this.state.expanded ? <OUList parent={this.props.item.id} edit={this.props.edit} /> : ""}
             </li>
         );
     }
