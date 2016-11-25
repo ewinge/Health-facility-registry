@@ -7,12 +7,9 @@ import Map from "./Map";
 
 var SearchMap = React.createClass({
   getInitialState: function() {
-
     return ({
-      markers: [],
-      polygons: [],
-      markerClicked: [],
-      showPolygons: false
+      orgUnits: [],
+      itemClicked: []
     });
   },
 
@@ -20,40 +17,27 @@ var SearchMap = React.createClass({
   //if a marker infoWindow will be rendered or not
   getUnits: function() {
     const units = OUStore.getFilteredResult();
-    var newMarkers = [];
-    var newPolygons = [];
 
-    units.map((unit) => {
-      if (unit.hasOwnProperty("featureType")) {
-        switch(unit.featureType) {
-          case "POINT": { newMarkers.push(unit); break; }
-          case "POLYGON": { newPolygons.push(unit); break; }
-          case "MULTI_POLYGON": {  /*TODO; */ break; }
-        }
-      }
-    });
+    //Create boolean list to determine which InfoWindows will be shown
+    var bool = new Array(units.length);
 
-    var bool = new Array(newMarkers.length);
-    var i = units.length;
-
-    while (i--) {
-      bool[i] = false;
+    var len = units.length;
+    while (len--) {
+      bool[len] = false;
     }
 
     this.setState({
-      markers: newMarkers,
-      polygons: newPolygons,
+      orgUnits: units,
       markerClicked: bool,
-      showPolygons: !(newMarkers.length > 0)
     });
   },
 
-  //Handles marker clicks
-  onMarkerClick: function(index) {
-    var arr = this.state.markerClicked;
+  //Handles marker and polygon clicks
+  onItemClick: function(index) {
+    var arr = this.state.itemClicked;
     arr[index] = !arr[index];
     this.setState({
-      markerClicked: arr
+      itemClicked: arr
     });
   },
 
@@ -65,13 +49,17 @@ var SearchMap = React.createClass({
   //Listen to list changes in OUStore
   componentWillMount: function() {
     OUStore.on("listChange", this.getUnits);
-    OUStore.on("locate", this.pan)
+    OUStore.on("locate", this.pan);
+  },
+
+  componentDidMount: function() {
+    this.getUnits();
   },
 
   //Unlisten upon dismounting
   componentWillUnmount: function() {
     OUStore.removeListener("listChange", this.getUnits);
-    OUStore.removeListener("locate", this.pan)
+    OUStore.removeListener("locate", this.pan);
   },
 
   onClick: function(e) {
@@ -80,15 +68,19 @@ var SearchMap = React.createClass({
 
   render: function() {
     return (
-      <Map ref={(map) => { this._child = map; }} onClick={this.onClick}>
+      <Map ref={(map) => { this._child = map }} onClick={this.onClick}>
 
-        {this.state.markers.map((unit, i) => (
+        {this.state.orgUnits.map((unit, i) => (
           <OUMarkers key={i}
                      orgUnit={unit}
-                     showInfo={this.state.markerClicked[i]}
-                     onClick={() => this.onMarkerClick(i)}/>))}
+                     showInfo={this.state.itemClicked[i]}
+                     onClick={() => this.onItemClick(i)}/>))}
 
-        {this.state.showPolygons && this.state.polygons.map((unit, i) => (<OUPolygons key={i} orgUnit={unit} />))}
+        {this.state.orgUnits.map((unit, i) =>
+          (<OUPolygons key={i}
+                       orgUnit={unit}
+                       showInfo={this.state.itemClicked[i]}
+                       onClick={() => this.onItemClick(i)}/>))}
 
       </Map>
     )

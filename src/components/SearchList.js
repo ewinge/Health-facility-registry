@@ -6,7 +6,7 @@ var SearchList = React.createClass({
 
   getInitialState: function () {
     return {
-      items: OUStore.getQueryResult(),
+      items: OUStore.getFilteredResult(),
       loading: OUStore.isLoading(),
       error: false
     };
@@ -16,12 +16,6 @@ var SearchList = React.createClass({
   getFilteredResult: function() {
     this.setState({
       items: OUStore.getFilteredResult()
-    });
-  },
-
-  setLoading: function() {
-    this.setState({
-      loading: true
     });
   },
 

@@ -1,5 +1,4 @@
 import React from "react";
-
 import OUStore from "../stores/OUStore"
 import { handleQuery } from "../actions/Actions";
 
@@ -7,7 +6,8 @@ var SearchBar = React.createClass({
 
 	getInitialState: function() {
 		return {
-			value: ''
+			value: OUStore.getQuery(),
+			disabled: OUStore.isLoading()
 		};
 	},
 
@@ -23,14 +23,31 @@ var SearchBar = React.createClass({
 		handleQuery(this.state.value);
 	},
 
+	doneLoading: function() {
+		this.setState({
+			disabled: false
+		})
+	},
+
+	//Listen to list changes in OUStore
+	componentWillMount: function() {
+		OUStore.on("listReceived", this.doneLoading);
+	},
+
+	//Unlisten upon dismounting
+	componentWillUnmount: function() {
+		OUStore.removeListener("listReceived", this.doneLoading);
+	},
+
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<input
 					className="input"
-					type="search" placeholder="Search by name"
+					type="search" placeholder={this.state.disabled ? "Loading..." : "Search by name" }
 					value={this.state.value} onChange={this.handleChange}
 					size="30"
+					disabled={this.state.disabled ? "disabled" : ""}
 				/>
 			</form>
 		);
