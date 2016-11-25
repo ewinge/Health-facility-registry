@@ -5,9 +5,9 @@ import OUStore from "../stores/OUStore"
 /**
  * Link to delete a unit, only displayed for leaf nodes
  */
-export function DeleteLink({id, action}) {
-    if (!OUStore.hasChildren(id)) {
-        return (<Link onClick={action}>delete</Link>);
+export function DeleteLink({unit}) {
+    if (!OUStore.hasChildren(unit.id)) {
+        return (<Link onClick={() => handleDelete(unit)}>delete</Link>);
     } else {
         return null;
     }

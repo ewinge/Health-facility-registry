@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { loadUnit } from '../api';
-import { handleDelete } from "../actions/Actions";
 import OUStore from "../stores/OUStore";
 import { Link, Expander, DeleteLink } from "./widgets";
 
@@ -20,7 +19,6 @@ export default class OUList extends Component {
             items: [],
         };
 
-        this.deleteUnit = this.deleteUnit.bind(this);
         this.loadOrgUnits = this.loadOrgUnits.bind(this);
     }
 
@@ -42,10 +40,6 @@ export default class OUList extends Component {
         OUStore.removeListener("listReceived", this.loadOrgUnits);
     }
 
-    deleteUnit(item) {
-        handleDelete(item);
-    }
-
     loadOrgUnits() {
       this.setState({
           items: OUStore.getChildrenOf(this.props.parent)
@@ -60,7 +54,6 @@ export default class OUList extends Component {
                         item={item}
                         key={item.id}
                         edit={this.props.edit}
-                        deleteUnit={this.deleteUnit}
                     />
                 );
             });
@@ -122,7 +115,7 @@ class Node extends Component {
                 |
                 <Link onClick={() => this.newChild()}>new child</Link>
                 |
-                <DeleteLink id={this.state.item.id} action={() => this.props.deleteUnit(this.state.item)} />
+                <DeleteLink unit={this.state.item} />
                 ]
                 {this.state.expanded ? <OUList parent={this.state.item.id} edit={this.props.edit} /> : ""}
             </li>
