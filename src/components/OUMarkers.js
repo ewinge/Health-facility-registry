@@ -1,5 +1,6 @@
 import React from "react";
 import { Marker, InfoWindow } from "react-google-maps";
+import { parsePoint } from "../utils/CoordinateUtils";
 
 var OUMarkers = React.createClass({
 
@@ -9,19 +10,12 @@ var OUMarkers = React.createClass({
     //Only facilities that have coordinates are taken into account
     if (!(this.props.orgUnit.hasOwnProperty("coordinates") && this.props.orgUnit.featureType == "POINT"))  { return null; }
 
-    var coords = []
-    try {
-      coords = JSON.parse(this.props.orgUnit.coordinates);
-    } catch (e) {
-      return false;
-    }
-
     return (
     <Marker
       {...this.props}
       key={this.props.orgUnit.id}
-      position={{ lat: coords[1], lng: coords[0]}}
       onClick={this.props.onClick}
+      position={parsePoint(this.props.orgUnit.coordinates)}
     >
 
       {this.props.showInfo && (

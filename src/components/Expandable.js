@@ -1,6 +1,7 @@
 import React from "react";
 import OUStore from "../stores/OUStore"
 import LocateButton from "./LocateButton"
+import { findUnitCenter } from "../utils/CoordinateUtils";
 
 //Expands list item to show more detail
 var Expandable = React.createClass({
@@ -19,21 +20,27 @@ var Expandable = React.createClass({
   render: function() {
 		const unit = this.props.orgUnit;
 
+		if (unit.id == "lc3eMKXaEfw") { //TESTIIIING
+			const c = JSON.parse(unit.coordinates);
+			console.log("dat coord", c[0][0]);
+		}
+
+
     if (this.state.expanded) {
 			//Not all facilities have coordinates
 			const locateDisabled = !unit.hasOwnProperty('coordinates') ||
-														 !unit.hasOwnProperty('featureType') ||
-														 unit.featureType == "MULTI_POLYGON"; //MULTI_POLYGON not implemented yet
+														 !unit.hasOwnProperty('featureType');
 
 			var coords = [];
 			if (!locateDisabled) {
-				coords = OUStore.findUnitCenter(unit);
+				coords = findUnitCenter(unit);
 			};
 
 			return (
 				<li key={this.props.id} onClick={this.handleClick}>
 					<ol>
 						<li><b>{unit.displayName}</b></li>
+						<li><b>ID</b>:     {unit.id}</li>
 						<li><b>Code</b>:   {unit.code}</li>
 						<li><b>Level</b>:  {OUStore.getLevelString(unit.level)}</li>
 						{unit.level == 4 && <li><b>Opened:</b> {unit.openingDate.substring(0, unit.openingDate.indexOf('T'))}</li>}

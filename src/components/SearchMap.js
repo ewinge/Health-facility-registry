@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleMapLoader, GoogleMap } from "react-google-maps";
+import OUMultiPolygons from "./OUMultiPolygons";
 import OUPolygons from "./OUPolygons";
 import OUMarkers from "./OUMarkers";
 import OUStore from "../stores/OUStore";
@@ -72,15 +72,22 @@ var SearchMap = React.createClass({
 
         {this.state.orgUnits.map((unit, i) => (
           <OUMarkers key={i}
-                     orgUnit={unit}
-                     showInfo={this.state.itemClicked[i]}
-                     onClick={() => this.onItemClick(i)}/>))}
+            orgUnit={unit}
+            showInfo={this.state.itemClicked[i]}
+            onClick={() => this.onItemClick(i)}/>))}
 
         {this.state.orgUnits.map((unit, i) =>
           (<OUPolygons key={i}
-                       orgUnit={unit}
-                       showInfo={this.state.itemClicked[i]}
-                       onClick={() => this.onItemClick(i)}/>))}
+            orgUnit={unit}
+            showInfo={this.state.itemClicked[i]}
+            onClick={() => this.onItemClick(i)}/>))}
+
+        {this.state.orgUnits.map((unit, i) =>
+          (<OUMultiPolygons key={i}
+            orgUnit={unit}
+            showInfo={this.state.itemClicked[i]}
+            onClick={() => this.onItemClick(i)}/>))}
+
 
       </Map>
     )
