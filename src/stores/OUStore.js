@@ -175,7 +175,7 @@ class OUStore extends EventEmitter {
 
       case "NEW_UNIT": {
         saveOrganisationUnit(action.newUnit);
-        this.state.organizationUnits.push(unit);
+        this.state.organizationUnits.push(action.newUnit);
         this.emit("unitChanged");
         break;
       }

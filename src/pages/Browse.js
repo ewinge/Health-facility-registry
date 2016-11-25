@@ -10,7 +10,6 @@ export default class Browse extends Component {
         // Set some initial state variables that are used within the component
         this.state = {
             editing: false,
-            onSubmit: false,
             root: "",
             editParent: false,
         };
@@ -23,15 +22,13 @@ export default class Browse extends Component {
      * Activate the form to edit a unit
      * 
      * @param id of the unit to edit, "" if new unit
-     * @Param onSubmit callback for saving data
-     * @param parent of new unit
+     * @param parentId of new unit
      */
-    editUnit(id, onSubmit, parent) {
-//        console.log("edit:", id, onSubmit, parent);
+    editUnit(id, parentId) {
+        console.log("edit:", id, parentId);
         this.setState({
             editing: id,
-            onSubmit: onSubmit,
-            editParent: parent,
+            editParent: parentId,
         });
     }
 
@@ -39,7 +36,7 @@ export default class Browse extends Component {
         return (
             <div className="app">
             <OUList parent={this.state.root} edit={this.editUnit} />
-            {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} onSubmit={this.state.onSubmit} parent={this.state.editParent} /> : ""}
+            {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : ""}
             </div>
         );
     }

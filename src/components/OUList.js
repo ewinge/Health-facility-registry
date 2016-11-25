@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { saveOrganisationUnit } from '../api';
 import { loadUnit } from '../api';
 import { handleDelete } from "../actions/Actions";
 import OUStore from "../stores/OUStore";
@@ -31,27 +30,20 @@ export default class OUList extends Component {
 
     //Listen to list changes in OUStore
     componentWillMount() {
-      OUStore.on("unitDeleted", this.loadOrgUnits);
-      OUStore.on("listReceived", this.loadOrgUnits); //Incase units are still loading
+        OUStore.on("unitDeleted", this.loadOrgUnits);
+        OUStore.on("unitChanged", this.loadOrgUnits);
+        OUStore.on("listReceived", this.loadOrgUnits); //Incase units are still loading
     }
 
     //Unlisten upon dismounting
     componentWillUnmount() {
-      OUStore.removeListener("unitDeleted", this.loadOrgUnits);
-      OUStore.removeListener("listReceived", this.loadOrgUnits);
+        OUStore.removeListener("unitDeleted", this.loadOrgUnits);
+        OUStore.removeListener("unitChanged", this.loadOrgUnits);
+        OUStore.removeListener("listReceived", this.loadOrgUnits);
     }
 
     deleteUnit(item) {
-      handleDelete(item);
-      /*
-        deleteOrganisationUnit(item.id)
-            .catch(() => alert(`Could not delete organisation unit ${item.displayName}`))
-            // reload the list
-            .then(() => {
-              handleDelete(item.id);
-              this.loadOrgUnits();
-            });
-            */
+        handleDelete(item);
     }
 
     loadOrgUnits() {
@@ -95,29 +87,9 @@ class Node extends Component {
         };
 
         this.expand = this.expand.bind(this);
-        this.saveUnit = this.saveUnit.bind(this);
         this.editUnit = this.editUnit.bind(this);
         this.update = this.update.bind(this);
         this.newChild = this.newChild.bind(this);
-        this.saveChild = this.saveChild.bind(this);
-    }
-
-    saveUnit(data) {
-        //Update local data
-        this.setState({item: data});
-        // Save the organisation unit to the api
-        saveOrganisationUnit(data)
-            .then(this.update);
-    }
-
-    saveChild(data) {
-        saveOrganisationUnit(data)
-            .then(() => {
-                //Update and display children, hack-ish
-                this.setState({expanded: false});
-                this.setState({expanded: true});
-//                this.forceUpdate();
-            });
     }
 
     update() {
@@ -133,11 +105,11 @@ class Node extends Component {
     }
 
     editUnit(id) {
-        this.props.edit(id, this.saveUnit);
+        this.props.edit(id);
     }
 
     newChild() {
-        this.props.edit("", this.saveChild, this.state.item);
+        this.props.edit("", this.state.item.id);
     }
 
     render() {

@@ -3,6 +3,13 @@ import { handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
 //import FormMap from "./FormMap";
 
+/**
+ * Generic form for editing Organisation units
+ * Can be used empty for new unit, or with the edit property
+ * to edit an existing unit
+ * @Prop parentId id of the parent to be used
+ * @Prop edit id of the node to be edited
+ */
 export default class Form extends Component {
     constructor(...args) {
         super(...args);
@@ -38,8 +45,8 @@ export default class Form extends Component {
         this.forceUpdate();
         
         //when editing a new child
-        if (nextProps.parent) {
-            this.setState({parent: nextProps.parent});
+        if (nextProps.parentId) {
+            this.setState({parent: {id: nextProps.parentId} });
         }
         
         //When editing  an existing unit, load data
@@ -57,7 +64,6 @@ export default class Form extends Component {
         } else {
             handleNewUnit(this.state);
         }
-//        this.props.onSubmit(this.state);
     }
 
     setName(event) {
@@ -124,5 +130,6 @@ export default class Form extends Component {
 }
 
 Form.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    edit: PropTypes.string,
+    parentId: PropTypes.string,
 };
