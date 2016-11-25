@@ -23,6 +23,7 @@ var OUMarkers = React.createClass({
           <div className="infoWindow">
             <ul>
               <li><b>{this.props.orgUnit.displayName}</b></li>
+              <li>ID: {this.props.orgUnit.id}</li>
               <li>code: {this.props.orgUnit.code}</li>
               <li>opened: {this.props.orgUnit.openingDate.substring(0, this.props.orgUnit.openingDate.indexOf('T'))}</li>
             </ul>

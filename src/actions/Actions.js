@@ -9,6 +9,15 @@ export function handleQuery(input) {
   })
 }
 
+//Called when "show facilities" button is pressed
+//Input should be an list of objects containing children id
+export function handleViewFacilities(input) {
+  dispatcher.dispatch({
+    type: "VIEW_FACILITIES",
+    children: input
+  })
+}
+
 //Called when new filter is set
 export function handleFilter(input) {
   dispatcher.dispatch({
@@ -38,10 +47,12 @@ export function handleUpdate(input) {
 
 //Called when a new unit is to be added to the local store
 export function handleNewUnit(input) {
-  dispatcher.dispatch({
-    type: "NEW_UNIT",
-    newUnit: input
-  })
+  saveOrganisationUnit(input).then(() =>
+    dispatcher.dispatch({
+      type: "NEW_UNIT",
+      newUnit: input
+    })
+  )
 }
 
 //Called to load all organization units

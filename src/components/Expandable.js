@@ -1,6 +1,7 @@
 import React from "react";
 import OUStore from "../stores/OUStore"
 import LocateButton from "./LocateButton"
+import ViewFacilityButton from "./ViewFacilityButton"
 import { findUnitCenter } from "../utils/CoordinateUtils";
 
 //Expands list item to show more detail
@@ -41,6 +42,7 @@ var Expandable = React.createClass({
 						{(unit.level == 4 && !locateDisabled) && <li><b>Coordinates</b>: {unit.coordinates}</li>}
 						{(unit.level == 4 && locateDisabled) && <li><b>Coordinates</b>: unavailable</li>}
 						<li><LocateButton disabled={locateDisabled} coords={coords}/></li>
+						{(unit.level < 4 && unit.level > 0 && !locateDisabled) && <ViewFacilityButton orgUnit={this.props.orgUnit}/>}
 					</ol>
 				</li>
 			);

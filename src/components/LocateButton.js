@@ -13,7 +13,7 @@ var LocateButton = React.createClass({
 
   render: function() {
     return (
-      <button className="locateButton" type="button" disabled={this.props.disabled} onClick={this.onClick}>Locate</button>
+      <button className="button" type="button" disabled={this.props.disabled} onClick={this.onClick}>Locate</button>
     );
   }
 })
