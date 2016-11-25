@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { handleNewUnit } from "../actions/Actions";
+import { handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
-import FormMap from "./FormMap";
+//import FormMap from "./FormMap";
 
 export default class Form extends Component {
     constructor(...args) {

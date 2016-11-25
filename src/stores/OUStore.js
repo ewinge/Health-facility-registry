@@ -174,17 +174,17 @@ class OUStore extends EventEmitter {
       }
 
       case "NEW_UNIT": {
-        saveOrganisationUnit(action.newUnit)
-            .then(() => loadUnit(action.newUnit.id)
-                            .then(unit => this.state.organizationUnits.push(unit))
-                            .then(() => this.emit("unitChanged")));
+        saveOrganisationUnit(action.newUnit);
+        this.state.organizationUnits.push(unit);
+        this.emit("unitChanged");
         break;
       }
 
       case "UPDATE_UNIT": {
-        saveOrganisationUnit(action.updatedUnit);
-        this.updateUnit(action.updatedUnit);
-        this.emit("unitChanged");
+        saveOrganisationUnit(action.updatedUnit)
+            .then(() => loadUnit(action.updatedUnit.id)
+                            .then(unit => this.updateUnit(unit))
+                            .then(() => this.emit("unitChanged")));
         break;
       }
 
