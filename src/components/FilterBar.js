@@ -13,6 +13,10 @@ var FilterBar = React.createClass({
 
 	handleChange: function(e) {
 		handleFilter(e.target.value);
+
+		this.setState({
+			selected: e.target.value
+		})
 	},
 
 	render() {

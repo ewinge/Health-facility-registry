@@ -1,6 +1,5 @@
 import React from "react";
-import OUStore from "../stores/OUStore";
-import { handleLocate} from "../actions/Actions";
+import { handleLocate } from "../actions/Actions";
 
 var LocateButton = React.createClass({
 
@@ -8,7 +7,7 @@ var LocateButton = React.createClass({
 
     //Makes sure that parent of button's click event isn't triggered as well.
     e.stopPropagation();
-    
+
     handleLocate(this.props.coords);
   },
 

@@ -167,6 +167,51 @@ class OUStore extends EventEmitter {
     }
   }
 
+  //Parse string coordinates of feature type POINT
+  parsePoint(point) {
+    const coords = JSON.parse(point);
+    return {lat: coords[1], lng: coords[0]};
+  }
+
+  //Parse string coordinates of feature type POLYGON
+  parsePolygon(poly) {
+    var points = [];
+    try {
+      //Polygons are formated as multipolygons (4 outer brackets)
+      points = JSON.parse(poly)[0][0].map(coord => (
+        {lat: coord[1], lng: coord[0]}
+      ))
+    } catch (e) {
+      return [];
+    }
+
+    return points;
+  }
+
+  //Find the approximate center of polygon
+  findPolygonCenter(poly) {
+    var bounds = new google.maps.LatLngBounds();
+
+    var len = poly.length;
+    while (len--) {
+      bounds.extend(poly[len]);
+    }
+
+    const center = bounds.getCenter();
+    return {lat: center.lat(), lng: center.lng()};
+  }
+
+  //Finds an organization unit's center coordinates
+  findUnitCenter(orgUnit) {
+    var coords = [];
+    switch (orgUnit.featureType) {
+      case "POINT": { coords = this.parsePoint(orgUnit.coordinates); break; }
+      case "POLYGON": { coords = this.findPolygonCenter(this.parsePolygon(orgUnit.coordinates)); break;}
+      case "MULTI_POLYGON": { return null } //TODO
+    }
+    return coords;
+  }
+
   //Handles actions by the components
   handleActions(action) {
     console.log("Action received:", action.type, action);
@@ -185,8 +230,7 @@ class OUStore extends EventEmitter {
       }
 
       case "LOCATE": {
-        const coords = JSON.parse(action.coords);
-        this.emit("locate", {lat: coords[1], lng: coords[0]});
+        this.emit("locate", action.coords);
         break;
       }
 
