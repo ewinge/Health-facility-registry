@@ -20,12 +20,6 @@ var Expandable = React.createClass({
   render: function() {
 		const unit = this.props.orgUnit;
 
-		if (unit.id == "lc3eMKXaEfw") { //TESTIIIING
-			const c = JSON.parse(unit.coordinates);
-			console.log("dat coord", c[0][0]);
-		}
-
-
     if (this.state.expanded) {
 			//Not all facilities have coordinates
 			const locateDisabled = !unit.hasOwnProperty('coordinates') ||

@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher";
-import { loadAllUnits, deleteOrganisationUnit } from "../api"
+import { saveOrganisationUnit, loadAllUnits, deleteOrganisationUnit, loadUnit } from "../api"
 
 //Called when a new search query in entered
 export function handleQuery(input) {
@@ -27,10 +27,13 @@ export function handleLocate(input) {
 
 //Updates the unit with the parameter unit's id
 export function handleUpdate(input) {
-  dispatcher.dispatch({
-    type: "UPDATE_UNIT",
-    updatedUnit: input
-  })
+  saveOrganisationUnit(input)
+      .then(() => loadUnit(input.id)
+      .then(unit =>
+        dispatcher.dispatch({
+          type: "UPDATE_UNIT",
+          updatedUnit: unit
+        })))
 }
 
 //Called when a new unit is to be added to the local store
@@ -67,5 +70,5 @@ export function handleDelete(unit) {
       type: "DELETE_UNIT",
       id: unit.id
     })
-  }) 
+  })
 }

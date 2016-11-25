@@ -1,6 +1,5 @@
 import { EventEmitter } from "events";
 import dispatcher from "../dispatcher"
-import { saveOrganisationUnit, loadUnit, loadAllUnits } from "../api"
 import { handleLoadAllUnits } from "../actions/Actions";
 
 class OUStore extends EventEmitter {
@@ -197,10 +196,8 @@ class OUStore extends EventEmitter {
       }
 
       case "UPDATE_UNIT": {
-        saveOrganisationUnit(action.updatedUnit)
-            .then(() => loadUnit(action.updatedUnit.id)
-                            .then(unit => this.updateUnit(unit))
-                            .then(() => this.emit("unitChanged")));
+        this.updateUnit(action.updatedUnit);
+        this.emit("unitChanged");
         break;
       }
 
