@@ -79,11 +79,16 @@ class Node extends Component {
         };
 
         this.expand = this.expand.bind(this);
+        this.toggleExpanded = this.toggleExpanded.bind(this);
         this.editUnit = this.editUnit.bind(this);
         this.newChild = this.newChild.bind(this);
     }
 
     expand() {
+        this.setState({expanded: true});
+    }
+
+    toggleExpanded() {
         // invert expanded
         this.setState(prevState => ({
             expanded: !prevState.expanded
@@ -95,13 +100,14 @@ class Node extends Component {
     }
 
     newChild() {
+        this.expand();
         this.props.edit("", this.props.item.id);
     }
 
     render() {
         return (
             <li key={this.props.item.id}>
-                <Expander expanded={this.state.expanded} onClick={this.expand} />
+                <Expander expanded={this.state.expanded} onClick={this.toggleExpanded} />
                 {this.props.item.name ? this.props.item.name : this.props.item.displayName}
                 [
                 <Link onClick={() => this.editUnit(this.props.item.id)}>edit</Link>
