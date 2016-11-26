@@ -69,11 +69,13 @@ body {
   flex: 1;
 }
 
-.form input {
-  flex: 2;
-  padding: 1rem;
-  border: 0;
-  font-size: 1rem;
+.input, .form input {
+  flex: 3;
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 .form button {
@@ -130,6 +132,13 @@ body {
   width: calc(100% - 10px);
   margin: 5px;
   text-align: center;
+}
+
+.home.right {
+  display: inline-block;
+  height: 100%;
+  width: calc(70% - 5px);
+  margin: 0;
 }
 
 .infoWindow {
@@ -243,7 +252,7 @@ body {
 
 .searchMap {
   height: 100%;
-  width: calc(70% - 5px);
+  width: 100%;
   margin-left: 5px;
   border-radius: 2px;
   background-color: lightsteelblue;
