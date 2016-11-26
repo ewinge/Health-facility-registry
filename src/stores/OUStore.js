@@ -136,6 +136,16 @@ class OUStore extends EventEmitter {
     return this.state.isLoading;
   }
 
+  //The unit being edited
+  getEditing() {
+      return this.state.isEditing;
+  }
+
+  //The parent of the unit being edited
+  getEditParent() {
+      return this.state.isEditingParent;
+  }
+
   //Gets a unit using an id
   getUnit(id) {
     var i = this.state.organizationUnits.length;
@@ -225,6 +235,12 @@ class OUStore extends EventEmitter {
         this.emit("unitChanged");
         break;
       }
+
+      case "EDIT_UNIT": {
+          this.state.isEditing = action.id;
+          this.emit("editing");
+          break;
+        }
 
       case "FETCHING_UNITS": {
         console.log("Loading units...");

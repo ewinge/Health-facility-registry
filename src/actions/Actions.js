@@ -45,6 +45,14 @@ export function handleUpdate(input) {
             })))
 }
 
+//open the edit form
+export function startEdit(id) {
+    dispatcher.dispatch({
+        type: "EDIT_UNIT",
+        id: id
+    });
+}
+
 //Called when a new unit is to be added to the local store
 export function handleNewUnit(input) {
   saveOrganisationUnit(input)

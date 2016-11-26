@@ -3,6 +3,7 @@ import OUStore from "../stores/OUStore"
 import LocateButton from "./LocateButton"
 import ViewFacilityButton from "./ViewFacilityButton"
 import { findUnitCenter } from "../utils/CoordinateUtils";
+import { EditLink, DeleteLink } from "./widgets";
 
 //Expands list item to show more detail
 var Expandable = React.createClass({
@@ -44,6 +45,8 @@ var Expandable = React.createClass({
 						<li><LocateButton disabled={locateDisabled} coords={coords}/></li>
 						{(unit.level < 4 && unit.level > 0 && !locateDisabled) && <ViewFacilityButton orgUnit={this.props.orgUnit}/>}
 					</ol>
+					<EditLink id={this.props.id} />
+					<DeleteLink unit={unit} />
 				</li>
 			);
 

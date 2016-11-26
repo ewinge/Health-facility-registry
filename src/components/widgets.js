@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { handleDelete } from "../actions/Actions";
+import { startEdit, handleDelete } from "../actions/Actions";
 import OUStore from "../stores/OUStore"
+
+export function EditLink({id}) {
+    return (<Link onClick={() => startEdit(id)}>edit</Link>);
+}
 
 /**
  * Link to delete a unit, only displayed for leaf nodes
