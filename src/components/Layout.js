@@ -7,7 +7,7 @@ import NavigationBar from "./NavigationBar.js";
 var Layout = React.createClass({
 	
 	render: function() {
-		console.log(this.props.children)
+//		console.log(this.props.children)
 		return (
 			<div className="layout">
 				<NavigationBar />
