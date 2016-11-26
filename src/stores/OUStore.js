@@ -227,12 +227,18 @@ class OUStore extends EventEmitter {
       case "NEW_UNIT": {
         this.state.organizationUnits.push(action.newUnit);
         this.emit("unitChanged");
+        //close form
+        this.state.isEditing = false;
+        this.emit("editing");
         break;
       }
 
       case "UPDATE_UNIT": {
         this.updateUnit(action.updatedUnit);
         this.emit("unitChanged");
+        //close form
+        this.state.isEditing = false;
+        this.emit("editing");
         break;
       }
 
