@@ -38,21 +38,22 @@ export function handleLocate(input) {
 export function handleUpdate(input) {
   saveOrganisationUnit(input)
       .then(() => loadUnit(input.id)
-      .then(unit =>
-        dispatcher.dispatch({
-          type: "UPDATE_UNIT",
-          updatedUnit: unit
-        })))
+          .then(unit =>
+            dispatcher.dispatch({
+              type: "UPDATE_UNIT",
+              updatedUnit: unit
+            })))
 }
 
 //Called when a new unit is to be added to the local store
 export function handleNewUnit(input) {
-  saveOrganisationUnit(input).then(() =>
-    dispatcher.dispatch({
-      type: "NEW_UNIT",
-      newUnit: input
-    })
-  )
+  saveOrganisationUnit(input)
+      .then(response => loadUnit(response.response.uid)
+          .then(unit =>
+                dispatcher.dispatch({
+                  type: "NEW_UNIT",
+                  newUnit: unit
+                })));
 }
 
 //Called to load all organization units
