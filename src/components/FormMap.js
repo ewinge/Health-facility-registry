@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, PropTypes } from 'react';
 import OUMultiPolygons from "./OUMultiPolygons";
 import OUPolygons from "./OUPolygons";
 import OUMarkers from "./OUMarkers";
@@ -63,7 +63,7 @@ const FormMap = React.createClass({
   },
 
   onClick: function(e) {
-    console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
+    this.props.onClick(e);
   },
 
   render: function() {
@@ -95,3 +95,9 @@ const FormMap = React.createClass({
 })
 
 module.exports = FormMap;
+
+/*
+FormMap.propTypes = {
+    onClick: PropTypes.func.required,
+};
+*/

@@ -27,6 +27,7 @@ export default class Form extends Component {
         this.state = Object.assign({}, this.emptyState);
         
         this.onSubmitClick = this.onSubmitClick.bind(this);
+        this.handleMapClick = this.handleMapClick.bind(this);
         this.setName = this.setName.bind(this);
         this.setShortName = this.setShortName.bind(this);
         this.setOpeningDate = this.setOpeningDate.bind(this);
@@ -129,7 +130,7 @@ export default class Form extends Component {
                         <button disabled={this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
                     </div>
                 </form>
-                <FormMap />
+                <FormMap onClick={this.handleMapClick} />
             </div>
         );
     }
