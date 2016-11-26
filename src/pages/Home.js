@@ -28,9 +28,11 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div className="home">
-				<Search />
+
+				  <Search />
+      
         <div className="home right">
-				{this.state.editing ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : <SearchMap />}
+				    {this.state.editing ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : <SearchMap />}
         </div>
 			</div>
 		);

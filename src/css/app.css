@@ -141,6 +141,13 @@ body {
   margin: 0;
 }
 
+.home.left {
+  display: inline-block;
+  height: 100%;
+  width: 30%;
+  margin-right: 5px;
+}
+
 .infoWindow {
   text-align: left;
 }
@@ -159,7 +166,7 @@ body {
   border-radius: 2px;
   display: inline-block;
   vertical-align: top;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .searchinner {
@@ -196,7 +203,6 @@ body {
 
 .input {
   width: 100%;
-  padding: 5px;
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -213,7 +219,7 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
-  height: 100%;
+    height: calc(100% - 25px);
   overflow-y: auto;
 }
 
@@ -248,6 +254,10 @@ body {
   border-radius: 3px;
   padding: 3px;
   width: 100%;
+}
+
+.button:hover:enabled {
+  background-color: #CCC;
 }
 
 .searchMap {

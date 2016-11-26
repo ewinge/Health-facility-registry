@@ -1,15 +1,21 @@
 import React from "react";
-import SearchBar from "./SearchBar";
+import SearchForm from "./SearchForm";
 import SearchList from "./SearchList";
 import FilterBar from "./FilterBar";
 
 var Search = React.createClass({
+	getInitialState: function() {
+		return ({
+			advancedSearch: true
+		})
+	},
+
 	render: function () {
 		return (
 			<div className="search">
 				<div className="searchinner">
 					<h1>Organization Units</h1>
-    			<SearchBar />
+					<SearchForm />
 
 						<div className="filter">
 							<ol>

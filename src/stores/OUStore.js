@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
-import dispatcher from "../dispatcher"
-import { handleLoadAllUnits } from "../actions/Actions";
+import dispatcher from "../dispatcher";
+import { search, advancedSearch, filter } from "../utils/SearchUtils";
 
 class OUStore extends EventEmitter {
   constructor() {
@@ -9,7 +9,7 @@ class OUStore extends EventEmitter {
     this.state = {
       isLoading: true,
       organizationUnits: [],
-      query: "",
+      query: {},
       queryResult: [],
       filteredResult: [],
       filter: 'facility',
@@ -17,18 +17,10 @@ class OUStore extends EventEmitter {
     };
   }
 
-  //Search from all units
-  search(query) {
-    query = query.toLowerCase();
+  //Search orgunits
+  search(query, property) {
     console.log("Search query:", query)
-
-    var result = [];
-    this.state.organizationUnits.forEach(function(orgUnit) {
-      if(orgUnit.displayName.toLowerCase().indexOf(query) != -1)
-      result.push(orgUnit);
-    });
-
-    this.state.queryResult = result;
+    this.state.queryResult = search(this.state.organizationUnits, query);
     this.filter(this.state.filter);
   }
 
@@ -38,19 +30,12 @@ class OUStore extends EventEmitter {
 
     if (filterBy != "none") {
       var level = this.state.levelString.length;
+
       while (level--) {
         if (filterBy == this.state.levelString[level]) break;
       }
 
-      var result = [];
-        this.state.queryResult.forEach(function(orgUnit) {
-          if(orgUnit.level == level) {
-            result.push(orgUnit);
-          }
-      });
-
-      this.state.filteredResult = result;
-
+      this.state.filteredResult = filter(this.state.queryResult, "level", level);
     } else {
 
       //If no filters are on, simply show the search query results
@@ -192,6 +177,7 @@ class OUStore extends EventEmitter {
       if (this.state.organizationUnits[i].id == id) {
         console.log("Unit deleted:", this.state.organizationUnits[i].displayName);
         this.state.organizationUnits.splice(i, 1);
+        this.emit("listChange");
         return;
       }
     }
@@ -204,7 +190,7 @@ class OUStore extends EventEmitter {
     switch(action.type) {
       case "QUERY": {
         this.state.query = action.query;
-        this.search(action.query);
+        this.search(action.query, action.property);
         break;
       }
 

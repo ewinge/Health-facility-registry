@@ -1,5 +1,5 @@
 import React from "react";
-import ViewFacilityButton from "./ViewFacilityButton"
+import ViewFacilityButton from "./buttons/ViewFacilityButton"
 import { Polygon, InfoWindow } from "react-google-maps";
 import { parsePolygon, findUnitCenter } from "../utils/CoordinateUtils";
 

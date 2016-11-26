@@ -1,8 +1,7 @@
 import React from "react";
-import { handleLocate } from "../actions/Actions";
+import { handleLocate } from "../../actions/Actions";
 
 var LocateButton = React.createClass({
-
   onClick: function(e) {
 
     //Makes sure that parent of button's click event isn't triggered as well.
@@ -13,7 +12,13 @@ var LocateButton = React.createClass({
 
   render: function() {
     return (
-      <button className="button" type="button" disabled={this.props.disabled} onClick={this.onClick}>Locate</button>
+      <button className="button"
+              type="button"
+              disabled={this.props.disabled}
+              onClick={this.onClick}
+              style={this.props.style}>
+              Locate
+      </button>
     );
   }
 })

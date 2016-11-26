@@ -1,5 +1,5 @@
 import React from "react";
-import { handleViewFacilities } from "../actions/Actions";
+import { handleViewFacilities } from "../../actions/Actions";
 
 var ViewFacilityButton = React.createClass({
   onClick: function(e) {
@@ -12,8 +12,14 @@ var ViewFacilityButton = React.createClass({
 
   render: function() {
     return (
-      <button onClick={this.onClick} className="button">Show facilities</button>
-    )
+      <button className="button"
+              type="button"
+              disabled={this.props.disabled}
+              onClick={this.onClick}
+              style={this.props.style}>
+              show facilities
+      </button>
+    );
   }
 })
 
