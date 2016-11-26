@@ -132,16 +132,6 @@ body {
   text-align: center;
 }
 
-.map {
-  height: 100%;
-  width: calc(70% - 5px);
-  margin-left: 5px;
-  border-radius: 2px;
-  background-color: lightsteelblue;
-  display: inline-block;
-  vertical-align: top;
-}
-
 .infoWindow {
   text-align: left;
 }
@@ -249,4 +239,20 @@ body {
   border-radius: 3px;
   padding: 3px;
   width: 100%;
+}
+
+.searchMap {
+  height: 100%;
+  width: calc(70% - 5px);
+  margin-left: 5px;
+  border-radius: 2px;
+  background-color: lightsteelblue;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+  vertical-align: top;
 }

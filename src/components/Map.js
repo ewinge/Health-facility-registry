@@ -19,10 +19,9 @@ var Map = React.createClass({
   },
 
   render: function() {
-    const mapContainer = <div className="map"></div>
     return (
         <GoogleMapLoader
-          containerElement = { mapContainer }
+          containerElement = { this.props.container }
           googleMapElement = {
             <GoogleMap
               ref={(map) => {
@@ -49,6 +48,7 @@ var Map = React.createClass({
 
 //Defaults
 Map.defaultProps = {
+  container: <div className="map"></div>,
   defaultCenter: {
     lat: 8.7208,
     lng: -11.9388

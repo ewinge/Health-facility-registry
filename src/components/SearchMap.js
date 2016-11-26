@@ -67,8 +67,9 @@ var SearchMap = React.createClass({
   },
 
   render: function() {
+    const mapContainer = <div className="searchMap"></div>
     return (
-      <Map ref={(map) => { this._child = map }} onClick={this.onClick}>
+      <Map ref={(map) => { this._child = map }} onClick={this.onClick} container={mapContainer}>
 
         {this.state.orgUnits.map((unit, i) => (
           <OUMarkers key={i}
