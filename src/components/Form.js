@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
-//import FormMap from "./FormMap";
+import FormMap from "../components/FormMap";
 
 /**
  * Generic form for editing Organisation units
@@ -66,6 +66,11 @@ export default class Form extends Component {
         }
     }
 
+    handleMapClick(e) {
+        console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
+        this.setState({coordinates: `[{e.latLng.lat()}, {e.latLng.lng()}]`});
+    }
+
     setName(event) {
         this.setState({ name: event.target.value });
     }
@@ -124,6 +129,7 @@ export default class Form extends Component {
                         <button disabled={this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
                     </div>
                 </form>
+                <FormMap />
             </div>
         );
     }
