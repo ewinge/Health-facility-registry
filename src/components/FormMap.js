@@ -5,7 +5,7 @@ import OUMarkers from "./OUMarkers";
 import OUStore from "../stores/OUStore";
 import Map from "./Map";
 
-var SearchMap = React.createClass({
+const FormMap = React.createClass({
   getInitialState: function() {
     return ({
       orgUnits: [],
@@ -94,4 +94,4 @@ var SearchMap = React.createClass({
   }
 })
 
-module.exports = SearchMap;
+module.exports = FormMap;
