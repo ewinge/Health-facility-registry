@@ -1,0 +1,20 @@
+{
+    "version": "0.1",
+    "name": "Health facility registry",
+    "description": "App for browsing, searching and editing organizational units",
+    "launch_path": "/",
+    "appType": "APP",
+    "icons": {
+        "48": "/images/icon-48.png"
+    },
+    "developer": {
+        "name": "inf5750",
+        "url": "http://uio.no"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*"
+        }
+    }
+}
