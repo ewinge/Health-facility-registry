@@ -67,8 +67,9 @@ const FormMap = React.createClass({
   },
 
   render: function() {
+    const mapContainer = <div className="formMap"></div>
     return (
-      <Map ref={(map) => { this._child = map }} onClick={this.onClick}>
+      <Map ref={(map) => { this._child = map }} onClick={this.onClick} container={mapContainer}>
 
         {this.state.orgUnits.map((unit, i) => (
           <OUMarkers key={i}

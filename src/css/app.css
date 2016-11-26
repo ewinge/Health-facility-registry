@@ -15,10 +15,27 @@ body {
   bottom: 0;
 }
 
-.app {
-  display: flex;
-  align-items: stretch;
+.page {
+  height: calc(100% - 60px);
+  width: calc(100% - 10px);
+  margin: 5px;
+  text-align: center;
+}
+
+.page.right {
+  display: inline-block;
   height: 100%;
+  width: calc(70% - 5px);
+  margin: 0;
+}
+
+.page.left {
+  vertical-align: top;
+  display: inline-block;
+  height: 100%;
+  width: calc(30% - 5px);
+  margin: 0px;
+  margin-right: 5px;
 }
 
 .list {
@@ -43,14 +60,25 @@ body {
   cursor: pointer;
 }
 
+.OUlist {
+ text-align: left;
+ width: 100%;
+ height: 100%;
+ border-radius: 2px;
+ display: inline-block;
+ vertical-align: top;
+ overflow: hidden;
+}
+
 .OUlist ul {
   list-style: none;
 }
 
 .form {
   background-color: #DDD;
-  flex: 1;
-  padding: 3rem;
+  height: 100%;
+  padding: 10px;
+  margin-left: 5px;
 }
 
 .form div {
@@ -61,7 +89,7 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
   align-items: center;
 }
 
@@ -79,7 +107,8 @@ body {
 }
 
 .form button {
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
   background-color: orange;
   border: 0;
   padding: 1rem;
@@ -127,27 +156,6 @@ body {
   float:right;
 }
 
-.home {
-  height: calc(100% - 60px);
-  width: calc(100% - 10px);
-  margin: 5px;
-  text-align: center;
-}
-
-.home.right {
-  display: inline-block;
-  height: 100%;
-  width: calc(70% - 5px);
-  margin: 0;
-}
-
-.home.left {
-  display: inline-block;
-  height: 100%;
-  width: 30%;
-  margin-right: 5px;
-}
-
 .infoWindow {
   text-align: left;
 }
@@ -160,7 +168,7 @@ body {
 
 .search {
   background-color: lightsteelblue;
-  width: 30%;
+  width: 100%;
   height: 100%;
   text-align: center;
   border-radius: 2px;
@@ -264,6 +272,17 @@ body {
   height: 100%;
   width: 100%;
   margin-left: 5px;
+  border-radius: 2px;
+  background-color: lightsteelblue;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.formMap {
+  height: 55%;
+  width: 100%;
+  margin-top: 10px;
+  padding: 0px;
   border-radius: 2px;
   background-color: lightsteelblue;
   display: inline-block;

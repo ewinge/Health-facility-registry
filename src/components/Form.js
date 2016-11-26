@@ -23,9 +23,9 @@ export default class Form extends Component {
             level: '',
             coordinates: "[0.0,0.0]",
         };
-        
+
         this.state = Object.assign({}, this.emptyState);
-        
+
         this.onSubmitClick = this.onSubmitClick.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
         this.setName = this.setName.bind(this);
@@ -33,23 +33,23 @@ export default class Form extends Component {
         this.setOpeningDate = this.setOpeningDate.bind(this);
         this.setCoordinates = this.setCoordinates.bind(this);
     }
-    
+
     componentDidMount() {
         this.componentWillReceiveProps(this.props);
     }
-    
+
     componentWillReceiveProps(nextProps) {
         //clear previous state
 //        this.replaceState(Object.assign({}, this.emptyState));
 //        this.setState({all:undefined,old:undefined,keys:undefined});
         this.state = Object.assign({}, this.emptyState);
         this.forceUpdate();
-        
+
         //when editing a new child
         if (nextProps.parentId) {
             this.setState({parent: {id: nextProps.parentId} });
         }
-        
+
         //When editing  an existing unit, load data
         if (nextProps.edit && nextProps.edit != "") {
             loadUnit(nextProps.edit)
@@ -83,7 +83,7 @@ export default class Form extends Component {
     setOpeningDate(event) {
         this.setState({ openingDate: event.target.value });
     }
-    
+
     setCoordinates(event) {
         this.setState({ coordinates: event.target.value });
     }

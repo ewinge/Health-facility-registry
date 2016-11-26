@@ -27,8 +27,8 @@ export default class Browse extends Component {
     render() {
         // We hide the form component when we are in the saving state.
         return (
-            <div className="register">
-            {this.state.isSaving ? <div>Saving organisation unit</div> : <Form onSubmit={this.onSubmit} />}
+            <div className="page">
+              {this.state.isSaving ? <div>Saving organisation unit</div> : <Form onSubmit={this.onSubmit} />}
             </div>
         );
     }

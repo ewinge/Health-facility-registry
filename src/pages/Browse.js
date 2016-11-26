@@ -17,10 +17,10 @@ export default class Browse extends Component {
         // Bind the functions that are passed around to the component
         this.editUnit = this.editUnit.bind(this);
     }
-    
+
     /**
      * Activate the form to edit a unit
-     * 
+     *
      * @param id of the unit to edit, "" if new unit
      * @param parentId of new unit
      */
@@ -34,9 +34,13 @@ export default class Browse extends Component {
 
     render() {
         return (
-            <div className="app">
-            <OUList parent={this.state.root} edit={this.editUnit} />
-            {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : ""}
+            <div className="page">
+              <div className="page left">
+                <OUList parent={this.state.root} edit={this.editUnit} />
+              </div>
+              <div className="page right">
+                {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : ""}
+              </div>
             </div>
         );
     }
