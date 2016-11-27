@@ -22,7 +22,7 @@ export default class Form extends Component {
             shortName: '',
             openingDate: '',
             level: '',
-            coordinates: "[0.0,0.0]",
+            coordinates: "",
         };
 
         this.state = Object.assign({}, this.emptyState);
