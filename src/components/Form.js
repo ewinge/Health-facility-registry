@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import OUStore from "../stores/OUStore"
+import OUStore from "../stores/OUStore";
 import { cancelEdit, handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
 import FormMap from "../components/FormMap";
@@ -145,7 +145,7 @@ export default class Form extends Component {
                         <button id="cancel" onClick={cancelEdit}>Cancel</button>
                     </div>
                 </form>
-                <FormMap onClick={this.handleMapClick} />
+                <FormMap onClick={this.handleMapClick} orgUnits={[this.state]} />
             </div>
         );
     }
