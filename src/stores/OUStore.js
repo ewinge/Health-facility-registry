@@ -183,6 +183,13 @@ class OUStore extends EventEmitter {
     }
   }
 
+  //Helper to end editing
+  closeForm() {
+      this.state.isEditing = false;
+      this.state.isEditingParent = false;
+      this.emit("editing");
+  }
+
   //Handles actions by the components
   handleActions(action) {
     console.log("Action received:", action.type, action);
@@ -213,18 +220,14 @@ class OUStore extends EventEmitter {
       case "NEW_UNIT": {
         this.state.organizationUnits.push(action.newUnit);
         this.emit("unitChanged");
-        //close form
-        this.state.isEditing = false;
-        this.emit("editing");
+        this.closeForm();
         break;
       }
 
       case "UPDATE_UNIT": {
         this.updateUnit(action.updatedUnit);
         this.emit("unitChanged");
-        //close form
-        this.state.isEditing = false;
-        this.emit("editing");
+        this.closeForm();
         break;
       }
 
@@ -236,9 +239,7 @@ class OUStore extends EventEmitter {
         }
 
       case "CANCEL_EDIT": {
-          this.state.isEditing = false;
-          this.state.isEditingParent = false;
-          this.emit("editing");
+          this.closeForm();
           this.emit("cancelEdit");
           break;
       }
