@@ -38,19 +38,11 @@ var SearchForm = React.createClass({
   },
 
 	handleSubmit: function() {
-
-    //Regular search by name
-    if (!this.state.advanced) {
-      handleQuery(this.state.nameQuery);
-
-    //Advanced search: name, id and code
-    } else {
-      handleQuery({
-        displayName: this.state.nameQuery,
-        code: this.state.codeQuery,
-        id: this.state.idQuery
-      });
-    }
+		handleQuery({
+			displayName: this.state.nameQuery,
+			code: this.state.codeQuery,
+			id: this.state.idQuery
+		});	
 	},
 
   handleReset: function() {
