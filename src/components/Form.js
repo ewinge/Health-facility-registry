@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import OUStore from "../stores/OUStore"
 import { cancelEdit, handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
 import FormMap from "../components/FormMap";
@@ -32,18 +33,33 @@ export default class Form extends Component {
         this.setShortName = this.setShortName.bind(this);
         this.setOpeningDate = this.setOpeningDate.bind(this);
         this.setCoordinates = this.setCoordinates.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     componentDidMount() {
         this.componentWillReceiveProps(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        //clear previous state
+    //Listen to list changes in OUStore
+    componentWillMount() {
+        OUStore.on("cancelEdit", this.reset);
+    }
+
+    //Unlisten upon dismounting
+    componentWillUnmount() {
+        OUStore.removeListener("cancelEdit", this.reset);
+    }
+
+    //clear previous state
+    reset() {
 //        this.replaceState(Object.assign({}, this.emptyState));
 //        this.setState({all:undefined,old:undefined,keys:undefined});
         this.state = Object.assign({}, this.emptyState);
         this.forceUpdate();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.reset();
 
         if (nextProps.parentId) {
             //when editing a new child
