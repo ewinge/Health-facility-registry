@@ -46,10 +46,18 @@ export function handleUpdate(input) {
 }
 
 //open the edit form
-export function startEdit(id) {
+export function startEdit(id, parent) {
     dispatcher.dispatch({
         type: "EDIT_UNIT",
-        id: id
+        id: id,
+        parent: parent
+    });
+}
+
+//Close/cancel edit form
+export function cancelEdit() {
+    dispatcher.dispatch({
+        type: "CANCEL_EDIT"
     });
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { saveOrganisationUnit, loadOrganisationUnits, deleteOrganisationUnit } from '../api';
+import OUStore from "../stores/OUStore";
 import Form from '../components/Form';
 import OUList from '../components/OUList';
 
@@ -9,34 +9,35 @@ export default class Browse extends Component {
 
         // Set some initial state variables that are used within the component
         this.state = {
-            editing: false,
+            editing: OUStore.getEditing(),
             root: "",
-            editParent: false,
+            editParent: OUStore.getEditParent(),
         };
-
-        // Bind the functions that are passed around to the component
-        this.editUnit = this.editUnit.bind(this);
+        this.update = this.update.bind(this);
     }
 
-    /**
-     * Activate the form to edit a unit
-     *
-     * @param id of the unit to edit, "" if new unit
-     * @param parentId of new unit
-     */
-    editUnit(id, parentId) {
-        console.log("edit:", id, parentId);
+    update() {
         this.setState({
-            editing: id,
-            editParent: parentId,
+            editing: OUStore.getEditing(),
+            editParent: OUStore.getEditParent(),
         });
+    }
+
+    //Listen to list changes in OUStore
+    componentWillMount() {
+        OUStore.on("editing", this.update);
+    }
+
+    //Unlisten upon dismounting
+    componentWillUnmount() {
+        OUStore.removeListener("editing", this.update);
     }
 
     render() {
         return (
             <div className="page">
               <div className="page left">
-                <OUList parent={this.state.root} edit={this.editUnit} />
+                <OUList parent={this.state.root} />
               </div>
               <div className="page right">
                 {this.state.editing || this.state.editParent ? <Form edit={this.state.editing} parentId={this.state.editParent} /> : ""}

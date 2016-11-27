@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { handleUpdate, handleNewUnit } from "../actions/Actions";
+import { cancelEdit, handleUpdate, handleNewUnit } from "../actions/Actions";
 import { loadUnit } from '../api';
 import FormMap from "../components/FormMap";
 
@@ -45,13 +45,11 @@ export default class Form extends Component {
         this.state = Object.assign({}, this.emptyState);
         this.forceUpdate();
 
-        //when editing a new child
         if (nextProps.parentId) {
+            //when editing a new child
             this.setState({parent: {id: nextProps.parentId} });
-        }
-
-        //When editing  an existing unit, load data
-        if (nextProps.edit && nextProps.edit != "") {
+        } else if (nextProps.edit && nextProps.edit != "") {
+            //When editing  an existing unit, load data
             loadUnit(nextProps.edit)
                 .then(unit => this.setState(unit));
         }
@@ -69,7 +67,7 @@ export default class Form extends Component {
 
     handleMapClick(e) {
         console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
-        this.setState({coordinates: `[{e.latLng.lat()}, {e.latLng.lng()}]`});
+        this.setState({coordinates: `[${e.latLng.lat()}, ${e.latLng.lng()}]`});
     }
 
     setName(event) {
@@ -122,12 +120,13 @@ export default class Form extends Component {
                     </div>
                     <div>
                     <label>
-                        <span>Coordinates</span>
+                        <span>Coordinates (click map)</span>
                         <input type="text" value={this.state.coordinates} onChange={this.setCoordinates} />
                     </label>
                     </div>
                     <div>
                         <button disabled={this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
+                        <button id="cancel" onClick={cancelEdit}>Cancel</button>
                     </div>
                 </form>
                 <FormMap onClick={this.handleMapClick} />

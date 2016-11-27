@@ -230,9 +230,18 @@ class OUStore extends EventEmitter {
 
       case "EDIT_UNIT": {
           this.state.isEditing = action.id;
+          this.state.isEditingParent = action.parent;
           this.emit("editing");
           break;
         }
+
+      case "CANCEL_EDIT": {
+          this.state.isEditing = false;
+          this.state.isEditingParent = false;
+          this.emit("editing");
+          this.emit("cancelEdit");
+          break;
+      }
 
       case "FETCHING_UNITS": {
         console.log("Loading units...");

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { loadUnit } from '../api';
+import { startEdit } from "../actions/Actions";
 import OUStore from "../stores/OUStore";
-import { Link, Expander, DeleteLink } from "./widgets";
+import { Link, EditLink, Expander, DeleteLink } from "./widgets";
 
 /**
  * Expandable list/tree of organizational units
  * Recursive list, where each level is a OUlist containing Node elements
  * 
  * @Prop parent the parent node of this level, "" if root
- * @Prop edit function callback for editing units
  */
 export default class OUList extends Component {
     constructor(props, context) {
@@ -53,7 +53,6 @@ export default class OUList extends Component {
                     <Node
                         item={item}
                         key={item.id}
-                        edit={this.props.edit}
                     />
                 );
             });
@@ -80,7 +79,6 @@ class Node extends Component {
 
         this.expand = this.expand.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
-        this.editUnit = this.editUnit.bind(this);
         this.newChild = this.newChild.bind(this);
     }
 
@@ -95,13 +93,9 @@ class Node extends Component {
         }));
     }
 
-    editUnit(id) {
-        this.props.edit(id);
-    }
-
     newChild() {
         this.expand();
-        this.props.edit("", this.props.item.id);
+        startEdit("", this.props.item.id);
     }
 
     render() {
@@ -110,13 +104,13 @@ class Node extends Component {
                 <Expander expanded={this.state.expanded} onClick={this.toggleExpanded} />
                 {this.props.item.name ? this.props.item.name : this.props.item.displayName}
                 [
-                <Link onClick={() => this.editUnit(this.props.item.id)}>edit</Link>
+                <EditLink id={this.props.item.id} />
                 |
                 <Link onClick={() => this.newChild()}>new child</Link>
                 |
                 <DeleteLink unit={this.props.item} />
                 ]
-                {this.state.expanded ? <OUList parent={this.props.item.id} edit={this.props.edit} /> : ""}
+                {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
             </li>
         );
     }
