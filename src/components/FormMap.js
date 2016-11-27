@@ -32,6 +32,7 @@ const FormMap = React.createClass({
   },
 
   render: function() {
+    console.log("FormMap units:", this.props.orgUnits);
     const mapContainer = <div className="formMap"></div>
     return (
       <Map ref={(map) => { this._child = map }} onClick={this.onClick} container={mapContainer}>

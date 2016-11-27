@@ -83,7 +83,10 @@ export default class Form extends Component {
 
     handleMapClick(e) {
         console.log("Clicked location:", e.latLng.lat(), e.latLng.lng());
-        this.setState({coordinates: `[${e.latLng.lat()}, ${e.latLng.lng()}]`});
+        this.setState({
+            coordinates: `[${e.latLng.lat()},${e.latLng.lng()}]`,
+            featureType: "POINT"
+        });
     }
 
     setName(event) {
