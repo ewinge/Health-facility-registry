@@ -97,7 +97,7 @@ body {
   flex: 1;
 }
 
-.input, .form input {
+.input, .form input, .form select {
   flex: 3;
   width: 100%;
   padding: 5px;

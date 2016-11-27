@@ -12,7 +12,7 @@ var NavigationBar = React.createClass({
 				<ul>
 					<li><Link to="/">Search</Link></li>
 					<li><Link to="/browse">Browse</Link></li>
-					<li><Link to="/edit">Register new</Link></li>
+					<li><Link to="/edit">New root unit</Link></li>
 					<li><Link to="/help">Help</Link></li>
 				</ul>
 		  </div>

@@ -23,6 +23,7 @@ export default class Form extends Component {
             openingDate: '',
             level: '',
             coordinates: "",
+            featureType: "NONE",
         };
 
         this.state = Object.assign({}, this.emptyState);
@@ -101,6 +102,10 @@ export default class Form extends Component {
         this.setState({ openingDate: event.target.value });
     }
 
+    setFeatureType(event) {
+        this.setState({ featureType: event.target.value });
+    }
+
     setCoordinates(event) {
         this.setState({ coordinates: event.target.value });
     }
@@ -132,10 +137,22 @@ export default class Form extends Component {
                         </label>
                     </div>
                     <div>
-                    <label>
-                        <span>Level</span>
-                        <input disabled={true} type="number" value={this.state.level} />
-                    </label>
+                        <label>
+                            <span>Level</span>
+                            <input disabled={true} type="number" value={this.state.level} />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <span>Feature type</span>
+                            <select value={this.state.featureType} onChange={this.setFeatureType}>
+                                <option value="NONE">none</option>
+                                <option value="MULTI_POLYGON">multi-polygon</option>
+                                <option value="POLYGON">polygon</option>
+                                <option value="POINT">point</option>
+                                <option value="SYMBOL">symbol</option>
+                            </select>
+                        </label>
                     </div>
                     <div>
                     <label>
