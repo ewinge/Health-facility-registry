@@ -1,11 +1,11 @@
 import React from "react";
-import OUStore from "../stores/OUStore"
-import DeleteButton from "./buttons/DeleteButton"
-import LocateButton from "./buttons/LocateButton"
-import EditButton from "./buttons/EditButton"
-import ViewFacilityButton from "./buttons/ViewFacilityButton"
+import OUStore from "../stores/OUStore";
+import DeleteButton from "./buttons/DeleteButton";
+import LocateButton from "./buttons/LocateButton";
+import EditButton from "./buttons/EditButton";
+import NewChildButton from "./buttons/NewChildButton";
+import ViewFacilityButton from "./buttons/ViewFacilityButton";
 import { findUnitCenter } from "../utils/CoordinateUtils";
-import { EditLink, DeleteLink } from "./widgets";
 
 //Expands list item to show more detail
 var Expandable = React.createClass({
@@ -48,7 +48,8 @@ var Expandable = React.createClass({
 						{(unit.level < 4 && unit.level > 0 && !locateDisabled) && <ViewFacilityButton orgUnit={this.props.orgUnit}/>}
 					</ol>
 					<div style={{align: "right"}}>
-						<EditButton orgUnit={this.props.orgUnit} style={{width: "50%"}} />
+						<EditButton orgUnit={this.props.orgUnit} style={{width: "30%"}} />
+						<NewChildButton orgUnit={this.props.orgUnit} style={{width: "30%"}} />
 						<DeleteButton orgUnit={this.props.orgUnit} style={{width: "30%", background: "#BA3434", color: "white"}}/>
 					</div>
 				</li>
