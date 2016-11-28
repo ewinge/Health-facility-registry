@@ -5,9 +5,9 @@ import { loadUnit } from '../api';
 import FormMap from "../components/FormMap";
 
 /**
- * Generic form for editing Organisation units
- * Can be used empty for new unit, or with the edit property
- * to edit an existing unit
+ * Generic form for editing Organisation units. Can be used empty for new unit,
+ * or with the edit property to edit an existing unit
+ *
  * @Prop parentId id of the parent to be used
  * @Prop edit id of the node to be edited
  */
@@ -15,12 +15,12 @@ export default class Form extends Component {
     constructor(...args) {
         super(...args);
 
-        //For clearing the form
+        // For clearing the form
         this.emptyState = {
             id: "",
             name: '',
             shortName: '',
-            openingDate: '',
+            openingDate: new Date().toISOString(),
             level: '',
             coordinates: "",
             featureType: "NONE",
@@ -41,20 +41,20 @@ export default class Form extends Component {
         this.componentWillReceiveProps(this.props);
     }
 
-    //Listen to list changes in OUStore
+    // Listen to list changes in OUStore
     componentWillMount() {
         OUStore.on("cancelEdit", this.reset);
     }
 
-    //Unlisten upon dismounting
+    // Unlisten upon dismounting
     componentWillUnmount() {
         OUStore.removeListener("cancelEdit", this.reset);
     }
 
-    //clear previous state
+    // clear previous state
     reset() {
-//        this.replaceState(Object.assign({}, this.emptyState));
-//        this.setState({all:undefined,old:undefined,keys:undefined});
+// this.replaceState(Object.assign({}, this.emptyState));
+// this.setState({all:undefined,old:undefined,keys:undefined});
         this.state = Object.assign({}, this.emptyState);
         this.forceUpdate();
     }
@@ -63,10 +63,10 @@ export default class Form extends Component {
         this.reset();
 
         if (nextProps.parentId) {
-            //when editing a new child
+            // when editing a new child
             this.setState({parent: {id: nextProps.parentId} });
         } else if (nextProps.edit && nextProps.edit != "") {
-            //When editing  an existing unit, load data
+            // When editing an existing unit, load data
             loadUnit(nextProps.edit)
                 .then(unit => this.setState(unit));
         }
@@ -74,7 +74,7 @@ export default class Form extends Component {
 
     onSubmitClick(event) {
         event.preventDefault();
-        //update or new unit?
+        // update or new unit?
         if (this.state.id && this.state.id != "") {
             handleUpdate(this.state)
         } else {
@@ -111,7 +111,11 @@ export default class Form extends Component {
     }
 
     isFormValid() {
-        return !(this.state.name && this.state.shortName && this.state.openingDate);
+        return (this.state.name && this.state.shortName && this.state.openingDate && this.isDateValid());
+    }
+
+    isDateValid() {
+        return (new Date(this.state.openingDate)).getTime() > 0;
     }
 
     render() {
@@ -132,7 +136,7 @@ export default class Form extends Component {
                     </div>
                     <div>
                         <label>
-                            <span>Opening date</span>
+                            <span>Opening date {this.isDateValid() ? "": "(Invalid, correct format: yyyy-mm-dd)"}</span>
                             <input type="date" value={this.state.openingDate} onChange={this.setOpeningDate} />
                         </label>
                     </div>
@@ -161,7 +165,7 @@ export default class Form extends Component {
                     </label>
                     </div>
                     <div>
-                        <button disabled={this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
+                        <button disabled={!this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
                         <button id="cancel" onClick={cancelEdit}>Cancel</button>
                     </div>
                 </form>
