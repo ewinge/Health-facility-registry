@@ -1,23 +1,35 @@
 /**
- * `serverUrl` contains the api location of the server. You would generally get the baseUrl from the manifest.webapp
- * as described here http://dhis2.github.io/dhis2-docs/master/en/developer/html/apps_creating_apps.html
- *
- * `basicAuth` contains the username and password to send with the request as the basic authentication token. This is only needed when you develop locally and need CORS support (https://developer.mozilla.org/en-US/docs/Web/HTTP).
- * You obviously should not do this for your production apps.
+ *  setup for test/development mode
  */
-//const serverUrl = 'http://localhost:8082/api';
-const serverUrl = 'https://play.dhis2.org/demo/api';
+var production = false;
+//var serverUrl = 'http://localhost:8082/api';
+const testURL = 'https://play.dhis2.org/demo/api';
 const basicAuth = `Basic ${btoa('admin:district')}`;
+
+/**
+ * Setup for production mode
+ */
+const manifest = require('json!../manifest.webapp');
+const URL = manifest.activities.dhis.href;
+console.log("manifest:", manifest, URL);
+
+//Check if we are running development or production mode
+if (URL && URL != "*") {
+    var productionURL = URL  + "/api";
+    production  = true;
+}
+
+const headers = production ? { 'Content-Type': 'application/json' } : {Authorization: basicAuth, 'Content-Type': 'application/json' };
+const serverUrl = production ? productionURL : testURL;
+
+console.log("serverUrl:", serverUrl, "headers:", headers);
 
 /**
  * Default options object to send along with each request
  */
 const fetchOptions = {
     method: 'GET',
-    headers: {
-        Authorization: basicAuth,
-        'Content-Type': 'application/json',
-    },
+    headers: headers
 };
 
 /**
