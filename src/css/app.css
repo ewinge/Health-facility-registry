@@ -25,7 +25,7 @@ body {
 .page.right {
   display: inline-block;
   height: 100%;
-  width: calc(70% - 5px);
+  width: calc(100% - 310px);
   margin: 0;
 }
 
@@ -33,9 +33,15 @@ body {
   vertical-align: top;
   display: inline-block;
   height: 100%;
-  width: calc(30% - 5px);
+  width: 300px;
   margin: 0px;
   margin-right: 5px;
+}
+
+.help {
+  font-size: 16px;
+  margin-left: 20px;
+  text-align: left;
 }
 
 .list {
@@ -77,8 +83,28 @@ body {
 .form {
   background-color: #DDD;
   height: 100%;
-  padding: 10px;
+  padding: 5px;
   margin-left: 5px;
+}
+
+.form.upper {
+  height: 40%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px;
+  overflow-y: auto;
+}
+
+.form.lower {
+  margin: 0 auto;
+  height: 60%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #EEE;
+}
+
+.form form {
+  width: 100%;
 }
 
 .form div {
@@ -89,16 +115,25 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   align-items: center;
+  border-radius: 10px;
 }
 
 .form span {
   flex: 1;
 }
 
-.input, .form input, .form select {
+.form input, .form select {
   flex: 3;
+  width: 100%;
+  padding: 3px;
+  font-size: 14px;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+
+.input {
   width: 100%;
   padding: 5px;
   font-size: 16px;
@@ -271,7 +306,6 @@ body {
 .searchMap {
   height: 100%;
   width: 100%;
-  margin-left: 5px;
   border-radius: 2px;
   background-color: lightsteelblue;
   display: inline-block;
@@ -279,9 +313,9 @@ body {
 }
 
 .formMap {
-  height: 55%;
+  height: 100%;
   width: 100%;
-  margin-top: 10px;
+  margin: 0 auto;
   padding: 0px;
   border-radius: 2px;
   background-color: lightsteelblue;

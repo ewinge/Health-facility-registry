@@ -49,7 +49,7 @@ var Expandable = React.createClass({
 					</ol>
 					<div style={{align: "right"}}>
 						<EditButton orgUnit={this.props.orgUnit} style={{width: "30%"}} />
-						<NewChildButton orgUnit={this.props.orgUnit} style={{width: "30%"}} />
+							{unit.level < 4 && <NewChildButton orgUnit={this.props.orgUnit} style={{width: "30%"}} />}
 						<DeleteButton orgUnit={this.props.orgUnit} style={{width: "30%", background: "#BA3434", color: "white"}}/>
 					</div>
 				</li>

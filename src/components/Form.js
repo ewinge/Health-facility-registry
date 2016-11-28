@@ -121,6 +121,7 @@ export default class Form extends Component {
     render() {
         return (
             <div className="form">
+              <div className="form upper">
                 <form>
                     <div>
                         <label>
@@ -168,8 +169,12 @@ export default class Form extends Component {
                         <button disabled={!this.isFormValid()} id="submit" onClick={this.onSubmitClick}>Submit</button>
                         <button id="cancel" onClick={cancelEdit}>Cancel</button>
                     </div>
-                </form>
+                  </form>
+                </div>
+
+                <div className="form lower">
                 <FormMap onClick={this.handleMapClick} orgUnits={[this.state]} />
+                </div>
             </div>
         );
     }
