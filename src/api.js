@@ -27,8 +27,11 @@ const fetchOptions = {
 function onlySuccessResponses(response) {
     if (response.status >= 200 && response.status < 300) {
         return Promise.resolve(response);
+    } else {
+        console.log("Request failed:", response);
+        alert(`Request failed: ${response.statusText}`);
+        return Promise.reject(response);
     }
-    return Promise.reject(response);
 }
 
 export function saveOrganisationUnit(organisationUnit) {
@@ -48,7 +51,7 @@ export function saveOrganisationUnit(organisationUnit) {
         .then(onlySuccessResponses)
         // Parse the json response
         .then(response => response.json())
-        // Log any errors to the console. (Should probably do some better error handling);
+        // Log any errors to the console.
         .catch(error => console.error(error));
 }
 
