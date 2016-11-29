@@ -7,7 +7,7 @@ import { Link, EditLink, Expander, DeleteLink } from "./widgets";
 /**
  * Expandable list/tree of organizational units
  * Recursive list, where each level is a OUlist containing Node elements
- * 
+ *
  * @Prop parent the parent node of this level, "" if root
  */
 export default class OUList extends Component {
@@ -74,7 +74,8 @@ class Node extends Component {
 
         // Set some initial state variables
         this.state = {
-            expanded: false,
+            //expand root node by default
+            expanded: this.props.item.parent ? false : true,
         };
 
         this.expand = this.expand.bind(this);
