@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { loadUnit } from '../api';
 import { startEdit } from "../actions/Actions";
 import OUStore from "../stores/OUStore";
-import { Link, EditLink, Expander, DeleteLink } from "./widgets";
+import { ImageLink, Link, EditLink, Expander, DeleteLink } from "./widgets";
 
 /**
  * Expandable list/tree of organizational units
@@ -104,13 +104,9 @@ class Node extends Component {
             <li key={this.props.item.id}>
                 <Expander expanded={this.state.expanded} onClick={this.toggleExpanded} />
                 {this.props.item.name ? this.props.item.name : this.props.item.displayName}
-                [
                 <EditLink id={this.props.item.id} />
-                |
-                <Link onClick={() => this.newChild()}>new child</Link>
-                |
+                <ImageLink alt="new child" onClick={() => this.newChild()} image="images/add.png"/>
                 <DeleteLink unit={this.props.item} />
-                ]
                 {this.state.expanded ? <OUList parent={this.props.item.id} /> : ""}
             </li>
         );
