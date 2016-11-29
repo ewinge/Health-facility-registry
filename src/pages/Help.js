@@ -19,6 +19,13 @@ var Help = React.createClass({
                     <li>The <b>Edit</b> button will allow you to edit the chosen unit's data.</li>
                     <li>The <b>Delete</b> will permanently delete a unit! Use caution. (Only for facilities)</li>
                 </ul>
+                <h2>Editing</h2>
+                <p>
+                    When editing organizational units, the fields <i>Name</i>, <i>Short name</i> and <i>Opening date</i> are
+                    mandatory. The date should be on ISO 8601 format.
+                    For example: 2016-11-29, or 2016-11-29T09:41:57 if the time is to be included.
+                    Click on the map to select a position.
+                </p>
                 <h2>Browse</h2>
                 <p>
                     The Browse page is for navigating the organisation hierarchy.
