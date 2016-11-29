@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "Health facility registry",
     "description": "App for browsing, searching and editing organizational units",
-    "launch_path": "/index.html",
+    "launch_path": "index.html",
     "appType": "APP",
     "icons": {
         "48": "/images/icon-48.png"

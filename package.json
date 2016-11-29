@@ -4,6 +4,7 @@
   "description": "dhis2 webapp for accessing organisation unit information",
   "main": "src/index.html",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server"
   },
