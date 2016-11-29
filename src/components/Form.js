@@ -115,7 +115,7 @@ export default class Form extends Component {
     }
 
     isDateValid() {
-        return (new Date(this.state.openingDate)).getTime() > 0;
+        return !isNaN((new Date(this.state.openingDate)).getTime());
     }
 
     render() {
