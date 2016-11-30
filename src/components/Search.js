@@ -15,7 +15,7 @@ var Search = React.createClass({
 			<div className="search">
 				<div className="searchinner">
 				<div className="searchinner top">
-					<h1>Organization Units</h1>
+					<h2>Organization Unit Search</h2>
 					<SearchForm />
 
 						<div className="filter">

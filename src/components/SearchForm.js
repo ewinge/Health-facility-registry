@@ -42,7 +42,7 @@ var SearchForm = React.createClass({
 			displayName: this.state.nameQuery,
 			code: this.state.codeQuery,
 			id: this.state.idQuery
-		});	
+		});
 	},
 
   handleReset: function() {
@@ -74,6 +74,11 @@ var SearchForm = React.createClass({
 	},
 
 	render() {
+
+		//Some button text
+		const advanced = "Advanced";
+		const regular = "Show less";
+
 		return (
 			<form onSubmit={this.handleSubmit}>
         <SearchBar
@@ -99,24 +104,26 @@ var SearchForm = React.createClass({
         {this.state.advanced &&
           <div style={{align: "right"}}>
           <button className="button"
-                  style={{marginTop: "0px", width: "70%", padding: "7px"}}>
-                  submit
+                  style={{marginTop: "0px", width: "70%", padding: "5px"}}>
+                  search
           </button>
           <button className="button"
                   type="button" onClick={this.handleReset}
-                  style={{marginBottom: "10px", marginTop: "0px", width: "30%", padding: "7px"}}>
+                  style={{marginBottom: "10px", marginTop: "0px", width: "30%", padding: "5px"}}>
                   reset
           </button>
           </div>
         }
 
-        <div style={{textAlign: "right"}}>
+				<div style={{lign: "right"}}>
           <button className="button"
                   type="button" onClick={this.toggleAdvanced}
-                  style={{marginBottom: "10px", marginTop: "0", width: "100%"}}>
-                  Advanced
+                  style={{marginBottom: "10px", marginTop: "0", width: "50%"}}>
+                  {!this.state.advanced && advanced}
+									{this.state.advanced && regular}
           </button>
         </div>
+
       </form>
 		);
 

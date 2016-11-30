@@ -17,7 +17,7 @@ var ViewFacilityButton = React.createClass({
               disabled={this.props.disabled}
               onClick={this.onClick}
               style={this.props.style}>
-              show facilities
+              Show facilities
       </button>
     );
   }

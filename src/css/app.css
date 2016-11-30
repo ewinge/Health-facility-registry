@@ -25,7 +25,7 @@ body {
 .page.right {
   display: inline-block;
   height: 100%;
-  width: calc(100% - 310px);
+  width: calc(100% - 305px);
   margin: 0;
 }
 
@@ -39,9 +39,11 @@ body {
 }
 
 .help {
+  height:100%;
   font-size: 16px;
   margin-left: 20px;
   text-align: left;
+  overflow-y: auto;
 }
 
 .list {
@@ -252,16 +254,24 @@ body {
 }
 
 .filter ol li {
-  width: 35%;
+  width: 25%;
   float: left;
-  font-size: 16px;
   padding-top: 6px;
+  font-size: 16px;
+  font-family: Arial;
 }
 
 .filter ol li:last-child {
-  width: 65%;
+  width: 75%;
   padding: 0px;
 }
+
+.filter select {
+  background: #F5FBFC;
+  border-style: groove;
+  outline: none;
+  font-size: 16px;
+ }
 
 .input {
   width: 100%;
@@ -288,11 +298,12 @@ body {
 
 .searchList li {
   padding: 10px;
-  margin-top: 5px;
+  margin-top: 4px;
   background: #F5FBFC;
-  border-radius: 5px;
+  border-radius: 7px;
   border: solid #BBB 1px;
   cursor: pointer;
+  border: groove;
 }
 
 .searchList li:hover {
@@ -308,20 +319,22 @@ body {
   padding: 0px;
   margin-top: 0px;
   border: hidden;
-  border-radius: 0px;
   text-align: left;
   list-style: none;
 }
 
 .button {
   margin-top: 5px;
-  border-radius: 3px;
+  border-radius: 7px;
   padding: 3px;
   width: 100%;
+  background: #F5FBFC;
+  border-style: groove;
+  outline: none;
 }
 
 .button:hover:enabled {
-  background-color: #CCC;
+  background-color: #E4EAEB;
 }
 
 .searchMap {
