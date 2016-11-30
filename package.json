@@ -1,13 +1,13 @@
 {
   "name": "health-facility-registry",
   "version": "1.0.0",
-  "description": "dhis2 webapp for accessing organisation unit information",
+  "description": "App for browsing, searching and editing organizational units",
   "main": "src/index.html",
   "scripts": {
     "coverage": "babel-node node_modules/.bin/isparta cover --root ./src --report text --report html --report lcov node_modules/mocha/bin/_mocha -- --reporter dot --require config/setup.js --recursive test",
     "prebuild": "rm -rf build && mkdir build && d2-manifest package.json manifest.webapp",
     "build": "webpack",
-    "postbuild": "cp index.html build/ && cp icon.png build/ && cp node_modules/jquery/dist/jquery.min.js build/ && cp node_modules/babel-polyfill/dist/polyfill.min.js build/ && cp manifest.webapp build/",
+    "postbuild": "cp src/index.html build/ && cp icon.png build/ && cp -r src/css build/ && cp -r src/images build/ && cp node_modules/babel-polyfill/dist/polyfill.min.js build/ && cp manifest.webapp build/",
     "test": "mocha --reporter spec --compilers js:babel-core/register --require config/setup.js --recursive test",
     "test-watch": "mocha --reporter spec --compilers js:babel-core/register --require config/setup.js --recursive test --watch",
     "lint": "eslint --fix src && ./node_modules/eslint/bin/eslint.js --env node,mocha --global expect,sinon,spy,stub --rule 'no-unused-expressions: 0' test && scss-lint",
@@ -22,7 +22,7 @@
   "author": "Joshua & Erik",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "jquery": "^2.2.3"
+    
   },
   "devDependencies": {
     "babel-core": "^6.7.2",
@@ -46,11 +46,9 @@
     "isparta": "^4.0.0",
     "jsdom": "^9.0.0",
     "loglevel": "^1.4.0",
-    "material-ui": "^0.14.4",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
-    "react-addons-test-utils": "^0.14.7",
-    "react-tap-event-plugin": "^0.2.2",
+
     
     "flux": "^3.1.0",
     "geojson": "^0.4.0",
