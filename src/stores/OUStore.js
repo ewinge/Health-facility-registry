@@ -171,12 +171,22 @@ class OUStore extends EventEmitter {
     console.log("WARNING: No org unit found with this id:", orgUnit.id);
   }
 
+  //Removes the organisation unit from the store
   removeUnit(id) {
     var i = this.state.organizationUnits.length;
     while (i--) {
       if (this.state.organizationUnits[i].id == id) {
         console.log("Unit deleted:", this.state.organizationUnits[i].displayName);
         this.state.organizationUnits.splice(i, 1);
+
+        //Also remove from filtered list
+        var j = this.state.filteredResult.length;
+        while (j--) {
+          if (this.state.filteredResult[j].id == id) {
+            this.state.filteredResult.splice(j, 1);
+          }
+        } 
+
         this.emit("listChange");
         return;
       }
