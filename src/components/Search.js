@@ -14,6 +14,7 @@ var Search = React.createClass({
 		return (
 			<div className="search">
 				<div className="searchinner">
+				<div className="searchinner top">
 					<h1>Organization Units</h1>
 					<SearchForm />
 
@@ -23,8 +24,10 @@ var Search = React.createClass({
 								<li><FilterBar /></li>
 							</ol>
 						</div>
-
+					</div>
+					<div className="searchinner bottom">
 					<SearchList />
+					</div>
 				</div>
 			</div>
 		);
