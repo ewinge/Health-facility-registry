@@ -11,6 +11,9 @@ export function search(list, query) {
   for (var property in query) {
     if (query.hasOwnProperty(property)) {
 
+      //Ignore empty property searches
+      if (query[property] == "") continue;
+
       currentResult.forEach(function(unit) {
         if (unit.hasOwnProperty(property)) {
           if(unit[property].toLowerCase().indexOf(query[property].toLowerCase()) != -1) {
