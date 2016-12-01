@@ -41,6 +41,7 @@ body {
 .page.left ul {
   height: 100%;
   width: 100%;
+  margin: 0;
   overflow-y: auto;
   list-style: none;
 }
@@ -300,7 +301,6 @@ body {
   padding: 0px;
   list-style: none;
   overflow-y: auto;
-  height: 100%;
 }
 
 .searchList li {
