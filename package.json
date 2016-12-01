@@ -42,7 +42,6 @@
     "eslint": "^2.4.0",
     "eslint-config-dhis2": "^2.0.2",
     "eslint-plugin-react": "^4.1.0",
-    "http-proxy": "git+https://github.com/nicolayr/node-http-proxy.git",
     "isparta": "^4.0.0",
     "jsdom": "^9.0.0",
     "loglevel": "^1.4.0",
@@ -76,12 +75,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dhis2/app-skeleton.git"
+    "url": "git+https://github.com/ewinge/Health-facility-registry.git"
   },
-  "bugs": {
-    "url": "https://github.com/dhis2/app-skeleton/issues"
-  },
-  "homepage": "https://github.com/dhis2/app-skeleton#readme",
+  "homepage": "https://github.com/ewinge/Health-facility-registry#readme",
   "manifest.webapp": {
     "icons": {
       "48": "icon.png"
