@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { loadUnit } from '../api';
 import { startEdit } from "../actions/Actions";
 import OUStore from "../stores/OUStore";
 import { ImageLink, Link, EditLink, Expander, DeleteLink } from "./widgets";
