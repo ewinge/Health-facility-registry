@@ -47,14 +47,6 @@ const webpackConfig = {
                     presets: ['es2015', 'stage-0', 'react'],
                 },
             },
-            {
-                test: /\.css$/,
-                loader: 'style!css',
-            },
-            {
-                test: /\.scss$/,
-                loader: 'style!css!sass',
-            },
         ],
     },
     resolve: {
@@ -73,7 +65,6 @@ const webpackConfig = {
             { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
             { path: '/dhis-web-commons/*', target: dhisConfig.baseUrl, bypass: log },
             { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
-            { path: '/css/*', target: 'http://localhost:8081/build', bypass: log },
             { path: '/jquery.min.js', target: 'http://localhost:8081/node_modules/jquery/dist', bypass: log },
             { path: '/polyfill.min.js', target: 'http://localhost:8081/node_modules/babel-polyfill/dist', bypass: log },
         ],
